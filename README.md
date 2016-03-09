@@ -1,3 +1,3 @@
 # Pomitor
 
-[ P ] rice + M [ onitor ] = Pomitor 价格监测
+[ P ] rice + M [ onitor ] = Ponitor 价格监测
