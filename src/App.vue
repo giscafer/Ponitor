@@ -1,6 +1,6 @@
 <template>
     <div>
-        <img src="./assets/logo.png" class="logo">
+        <comp-d></comp-d>
         <h1>{{msg}}</h1>
          <comp-a></comp-a>
         <comp-b></comp-b>
@@ -13,6 +13,7 @@
 import CompA from './components/A.vue'
 import CompB from './components/B.vue'
 import Counter from './components/Counter.vue'
+import CompD from './components/D.vue'
 
 export default {
   data () {
@@ -23,7 +24,8 @@ export default {
   components: {
     CompA,
     CompB,
-    Counter
+    Counter,
+    CompD
   }
 }
 </script>
@@ -36,6 +38,6 @@ body
   color primary-color
 
 .logo
-  width 40px
-  height 40px
+  font-size: 4em;
+  font-weight: lighter;
 </style>

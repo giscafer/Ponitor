@@ -12,7 +12,7 @@ var app=express();
 app.set('views',path.join(__dirname,'./src/views'));
 app.set('view engine','html');
 app.engine('html', require('ejs-mate'));
-app.locals._layoutFile = 'layout.html';
+// app.locals._layoutFile = 'layout.html';
 app.enable('trust proxy');
 
 // 静态文件目录
