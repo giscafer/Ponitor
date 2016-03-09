@@ -9,6 +9,13 @@
     "test": "karma start build/karma.conf.js"
   },
   "dependencies": {
+    "body-parser": "^1.15.0",
+    "cookie-parser": "^1.4.1",
+    "ejs-mate": "^2.3.0",
+    "express": "^4.13.4",
+    "express-session": "^1.13.0",
+    "mongoose": "^4.4.6",
+    "superagent": "^1.7.2",
     "vue": "^1.0.17"
   },
   "devDependencies": {
