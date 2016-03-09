@@ -1,10 +1,12 @@
-<template lang="jade">
-div
-  img(class="logo", src="./assets/logo.png")
-  h1 {{msg}}
-  comp-a
-  comp-b
-  counter
+<template>
+    <div>
+        <img src="./assets/logo.png" class="logo">
+        <h1>{{msg}}</h1>
+         <comp-a></comp-a>
+        <comp-b></comp-b>
+        <counter></counter>
+    </div>
+
 </template>
 
 <script>
