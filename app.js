@@ -26,9 +26,9 @@ app.use(express.static(path.join(__dirname,'public')));
 
 app.use('/',webRouter);
 // app.use('/api',api);
-app.listen(8000, function() {
-    console.log("Ponitor listening on port %d", 8000);
-    console.log("You can debug your app with http://" + '127.0.0.1' + ':' +8000);
+app.listen(18080, function() {
+    console.log("Ponitor listening on port %d", 18080);
+    console.log("You can debug your app with http://" + '127.0.0.1' + ':' +18080);
 });
 
 module.exports = app;
