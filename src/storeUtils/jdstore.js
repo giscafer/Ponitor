@@ -30,27 +30,7 @@ function getPrice(url) {
             });
     });
 }
-/*function getImage(skuids){
-	return new Promise((resolve,reject)=>{
-		request.get('http://item.jd.com/bigimage.aspx')
-			.query('id',skuids)
-			.end(function(err,res){
-				if(err){
-					reject(err);
-				}else{
-					const $=cheerio.load(res.text);
-					const html=$('ul.list-h').html();
-					const ahtml=$('title');
-					const imghtml=$('#biger img').attr('src');
-					const img=$('img').attr('alt');
-					console.log(ahtml.html())
-					console.log(imghtml)
-					console.log(img)
-					resolve(ahtml.html());
-				}
-			});
-	});
-}*/
+
 function fetchGoodInfo(obj) {
 	const url=obj.url;
     return new Promise((resolve, reject) => {
@@ -68,13 +48,7 @@ function fetchGoodInfo(obj) {
 
                     info.description = $intro.find($("#name h1")).text();
                     info.image = 'http:'+$intro.find('#spec-n1 img').attr('src');
-                  /*  const $screenshot = $intro.find($('div.spec-items>ul.lh li'));
-                    $screenshot.each(function(index, el) {
-                        var src = $(el).prop('src');
-                        console.log(src)
-                        src='http://'+src.replace('n5','n1');
-                        info.screenshot.push(src);
-                    });*/
+    
  					info.price=obj.p;
  					info.priceText='￥'+obj.p;
                     resolve(info);
