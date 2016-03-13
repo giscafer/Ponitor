@@ -1,0 +1,593 @@
+{
+    defaultModel: {
+        deliveryDO: {
+            areaId: 110100,
+            deliveryAddress: '��������',
+            deliverySkuMap: [Object],
+            destination: '������',
+            otherServiceList: [Object],
+            success: true
+        },
+        detailPageTipsDO: {
+            coupon: [Object],
+            crowdType: 0,
+            hideIcons: false,
+            jhs99: false,
+            minicartSurprise: 0,
+            priceDisplayType: 4,
+            primaryPicIcons: [],
+            prime: false,
+            showDou11Style: false,
+            showDou11SugPromPrice: false,
+            showDou12CornerIcon: false,
+            showDuo11Stage: 0,
+            success: true,
+            trueDuo11Prom: false
+        },
+        doubleEleven2014: {
+            doubleElevenItem: false,
+            halfOffItem: false,
+            showAtmosphere: false,
+            showRightRecommendedArea: false,
+            step: 0,
+            success: true
+        },
+        gatewayDO: {
+            changeLocationGateway: [Object],
+            success: true,
+            trade: [Object]
+        },
+        inventoryDO: {
+            hidden: false,
+            icTotalQuantity: 19,
+            skuQuantity: [Object],
+            success: true,
+            totalQuantity: 19,
+            type: 1
+        },
+        itemPriceResultDO: {
+            areaId: 110100,
+            depositExpandText: '',
+            duo11Item: false,
+            duo11Stage: 0,
+            extraPromShowRealPrice: false,
+            halfOffItem: false,
+            hasDPromotion: false,
+            hasMobileProm: false,
+            hasTmallappProm: true,
+            hideMeal: false,
+            priceInfo: [Object],
+            queryProm: false,
+            success: true,
+            tmallShopProm: []
+        },
+        memberRightDO: {
+            activityType: 0,
+            level: 0,
+            postageFree: false,
+            shopMember: false,
+            success: true,
+            time: 1,
+            value: 0.5
+        },
+        miscDO: {
+            bucketId: 11,
+            city: '����',
+            cityId: 110100,
+            hasCoupon: true,
+            region: '������',
+            regionId: 110101,
+            smartBannerFlag: 'top',
+            success: true,
+            systemTime: '1457879483994',
+            town: '�����Žֵ�',
+            townId: 110101001
+        },
+        progressiveInfoDO: {
+            double11Privilege: -1,
+            newPCInstallment: true,
+            progressiveEnable: false,
+            rateMap: [Object],
+            showProgressivePlan: true,
+            success: true,
+            text: 'ȫ����600Ԫ���߿���3�ڷ�����Ϣ',
+            tipType: 0,
+            tryBeforeBuy: false
+        },
+        sellCountDO: { sellCount: 1, success: true },
+        soldAreaDataDO: { success: true },
+        tradeResult: {
+            cartEnable: true,
+            cartType: 2,
+            miniTmallCartEnable: true,
+            startTime: 1457495848000,
+            success: true,
+            tradeEnable: true
+        },
+        userInfoDO: {
+            activeStatus: 0,
+            loginUserType: 'buyer',
+            success: true,
+            userId: 0
+        }
+    },
+    isSuccess: true
+}
+//<meta name="microscope-data" content="pageId=948479474;prototypeId=2;siteId=2; shopId=113730029; userid=2225026818;">获取sellerId(userid)
+//请求https://rate.tmall.com/list_detail_rate.htm?itemId=42323050374&spuId=469325489&sellerId=2225026818 获取商品分类，以及
+//商品选择颜色分类后，链接后边加上参数&skuId=89489479096
+/**
+ * 解析思路，取出对应分类库存>0的商品价格展示。
+ */
+{
+    "defaultModel": {
+        "deliveryDO": {
+            "areaId": 110100,
+            "deliveryAddress": "福建厦门",
+            "deliverySkuMap": {
+                "default": [
+                    {
+                        "arrivalNextDay": false,
+                        "postage": "快递: 0.00 ",
+                        "postageFree": false,
+                        "skuDeliveryAddress": "福建厦门",
+                        "type": 0
+                    }
+                ]
+            },
+            "destination": "北京市",
+            "otherServiceList": [
+                {
+                    "imgUrl": "//assets.alicdn.com/img/app/logis/cod-icon.png",
+                    "title": "货到付款",
+                    "url": "//www.tmall.com/go/act/sale/cod.php"
+                }
+            ],
+            "success": true
+        },
+        "detailPageTipsDO": {
+            "coupon": {
+                "couponType": "TmallGuaguaka",
+                "linkText": "积分刮券",
+                "logo": "//img.alicdn.com/tps/TB1g4dBLXXXXXXBXVXXXXXXXXXX-132-36.png",
+                "txt": "天猫实物商品通用",
+                "type": 5
+            },
+            "crowdType": 0,
+            "hideIcons": false,
+            "jhs99": false,
+            "minicartSurprise": 0,
+            "priceDisplayType": 4,
+            "primaryPicIcons": [],
+            "prime": false,
+            "showDou11Style": false,
+            "showDou11SugPromPrice": false,
+            "showDou12CornerIcon": false,
+            "showDuo11Stage": 0,
+            "success": true,
+            "trueDuo11Prom": false
+        },
+        "doubleEleven2014": {
+            "doubleElevenItem": false,
+            "halfOffItem": false,
+            "showAtmosphere": false,
+            "showRightRecommendedArea": false,
+            "step": 0,
+            "success": true
+        },
+        "gatewayDO": {
+            "changeLocationGateway": {
+                "queryDelivery": true,
+                "queryProm": false
+            },
+            "success": true,
+            "trade": {
+                "addToBuyNow": {},
+                "addToCart": {}
+            }
+        },
+        "inventoryDO": {//商品的存货
+            "hidden": false,
+            "icTotalQuantity": 19, //总共库存量
+            "skuQuantity": { //sku商品类别
+                "87856084519": {
+                    "quantity": 11,
+                    "totalQuantity": 11,
+                    "type": 1
+                },
+                "89489479096": {
+                    "quantity": 3,
+                    "totalQuantity": 3,
+                    "type": 1
+                },
+                "89489479098": {
+                    "quantity": 5,
+                    "totalQuantity": 5,
+                    "type": 1
+                },
+                "3104218250571": {
+                    "quantity": 0,//0的时候页面不会显示
+                    "totalQuantity": 0,
+                    "type": 1
+                },
+                "3104218250572": {
+                    "quantity": 0,//0的时候页面不会显示
+                    "totalQuantity": 0,
+                    "type": 1
+                },
+                "3104218898855": {
+                    "quantity": 0,//0的时候页面不会显示
+                    "totalQuantity": 0,
+                    "type": 1
+                },
+                "3112460856442": {
+                    "quantity": 0,//0的时候页面不会显示
+                    "totalQuantity": 0,
+                    "type": 1
+                },
+                "3112460856443": {
+                    "quantity": 0,//0的时候页面不会显示
+                    "totalQuantity": 0,
+                    "type": 1
+                },
+                "3113797826512": {
+                    "quantity": 0,//0的时候页面不会显示
+                    "totalQuantity": 0,
+                    "type": 1
+                }
+            },
+            "success": true,
+            "totalQuantity": 19,
+            "type": 1
+        },
+        "itemPriceResultDO": { //商品价格
+            "areaId": 110100,
+            "depositExpandText": "",
+            "duo11Item": false,
+            "duo11Stage": 0,
+            "extraPromShowRealPrice": false,
+            "halfOffItem": false,
+            "hasDPromotion": false,
+            "hasMobileProm": false,
+            "hasTmallappProm": true,
+            "hideMeal": false,
+            "priceInfo": { //对应inventoryDO->skuQuantity类别的各个价格
+                "3104218250571": {
+                    "areaSold": true,
+                    "price": "2999.00",
+                    "promotionList": [//促销
+                        {
+                            "amountPromLimit": 0,
+                            "amountRestriction": "",
+                            "basePriceType": "IcPrice",
+                            "canBuyCouponNum": 0,
+                            "endTime": 1459415172000,//促销结束时间
+                            "extraPromPrice": "2378.00",//手机购买价格
+                            "extraPromText": "237800",
+                            "extraPromTextType": 2,
+                            "extraPromType": 3,
+                            "limitProm": false,
+                            "postageFree": false,
+                            "price": "2399.00",//真实价格(促销价格)
+                            "promType": "normal",
+                            "start": false,
+                            "startTime": 1447430400000,//促销开始时间
+                            "status": 2,
+                            "tfCartSupport": false,
+                            "tmallCartSupport": false,
+                            "type": "爆款特惠",
+                            "unLogBrandMember": false,
+                            "unLogShopVip": false,
+                            "unLogTbvip": false
+                        }
+                    ]
+                },
+                "3104218250572": {
+                    "areaSold": true,
+                    "price": "2999.00",
+                    "promotionList": [
+                        {
+                            "amountPromLimit": 0,
+                            "amountRestriction": "",
+                            "basePriceType": "IcPrice",
+                            "canBuyCouponNum": 0,
+                            "endTime": 1459415172000,
+                            "extraPromPrice": "2378.00",
+                            "extraPromText": "237800",
+                            "extraPromTextType": 2,
+                            "extraPromType": 3,
+                            "limitProm": false,
+                            "postageFree": false,
+                            "price": "2399.00",
+                            "promType": "normal",
+                            "start": false,
+                            "startTime": 1447430400000,
+                            "status": 2,
+                            "tfCartSupport": false,
+                            "tmallCartSupport": false,
+                            "type": "爆款特惠",
+                            "unLogBrandMember": false,
+                            "unLogShopVip": false,
+                            "unLogTbvip": false
+                        }
+                    ]
+                },
+                "3104218898855": {
+                    "areaSold": true,
+                    "price": "2999.00",
+                    "promotionList": [
+                        {
+                            "amountPromLimit": 0,
+                            "amountRestriction": "",
+                            "basePriceType": "IcPrice",
+                            "canBuyCouponNum": 0,
+                            "endTime": 1459415172000,
+                            "extraPromPrice": "2378.00",
+                            "extraPromText": "237800",
+                            "extraPromTextType": 2,
+                            "extraPromType": 3,
+                            "limitProm": false,
+                            "postageFree": false,
+                            "price": "2399.00",
+                            "promType": "normal",
+                            "start": false,
+                            "startTime": 1447430400000,
+                            "status": 2,
+                            "tfCartSupport": false,
+                            "tmallCartSupport": false,
+                            "type": "爆款特惠",
+                            "unLogBrandMember": false,
+                            "unLogShopVip": false,
+                            "unLogTbvip": false
+                        }
+                    ]
+                },
+                "3112460856442": {
+                    "areaSold": true,
+                    "price": "2999.00",
+                    "promotionList": [
+                        {
+                            "amountPromLimit": 0,
+                            "amountRestriction": "",
+                            "basePriceType": "IcPrice",
+                            "canBuyCouponNum": 0,
+                            "endTime": 1459415172000,
+                            "extraPromPrice": "1978.00",
+                            "extraPromText": "197800",
+                            "extraPromTextType": 2,
+                            "extraPromType": 3,
+                            "limitProm": false,
+                            "postageFree": false,
+                            "price": "1999.00",
+                            "promType": "normal",
+                            "start": false,
+                            "startTime": 1447430400000,
+                            "status": 2,
+                            "tfCartSupport": false,
+                            "tmallCartSupport": false,
+                            "type": "爆款特惠",
+                            "unLogBrandMember": false,
+                            "unLogShopVip": false,
+                            "unLogTbvip": false
+                        }
+                    ]
+                },
+                "3112460856443": {
+                    "areaSold": true,
+                    "price": "2999.00",
+                    "promotionList": [
+                        {
+                            "amountPromLimit": 0,
+                            "amountRestriction": "",
+                            "basePriceType": "IcPrice",
+                            "canBuyCouponNum": 0,
+                            "endTime": 1459415172000,
+                            "extraPromPrice": "1978.00",
+                            "extraPromText": "197800",
+                            "extraPromTextType": 2,
+                            "extraPromType": 3,
+                            "limitProm": false,
+                            "postageFree": false,
+                            "price": "1999.00",
+                            "promType": "normal",
+                            "start": false,
+                            "startTime": 1447430400000,
+                            "status": 2,
+                            "tfCartSupport": false,
+                            "tmallCartSupport": false,
+                            "type": "爆款特惠",
+                            "unLogBrandMember": false,
+                            "unLogShopVip": false,
+                            "unLogTbvip": false
+                        }
+                    ]
+                },
+                "3113797826512": {
+                    "areaSold": true,
+                    "price": "2999.00",
+                    "promotionList": [
+                        {
+                            "amountPromLimit": 0,
+                            "amountRestriction": "",
+                            "basePriceType": "IcPrice",
+                            "canBuyCouponNum": 0,
+                            "endTime": 1459415172000,
+                            "extraPromPrice": "1978.00",
+                            "extraPromText": "197800",
+                            "extraPromTextType": 2,
+                            "extraPromType": 3,
+                            "limitProm": false,
+                            "postageFree": false,
+                            "price": "1999.00",
+                            "promType": "normal",
+                            "start": false,
+                            "startTime": 1447430400000,
+                            "status": 2,
+                            "tfCartSupport": false,
+                            "tmallCartSupport": false,
+                            "type": "爆款特惠",
+                            "unLogBrandMember": false,
+                            "unLogShopVip": false,
+                            "unLogTbvip": false
+                        }
+                    ]
+                },
+                "87856084519": {
+                    "areaSold": true,
+                    "price": "2999.00",
+                    "promotionList": [
+                        {
+                            "amountPromLimit": 0,
+                            "amountRestriction": "",
+                            "basePriceType": "IcPrice",
+                            "canBuyCouponNum": 0,
+                            "endTime": 1459415172000,
+                            "extraPromPrice": "1978.00",
+                            "extraPromText": "197800",
+                            "extraPromTextType": 2,
+                            "extraPromType": 3,
+                            "limitProm": false,
+                            "postageFree": false,
+                            "price": "1999.00",
+                            "promType": "normal",
+                            "start": false,
+                            "startTime": 1447430400000,
+                            "status": 2,
+                            "tfCartSupport": false,
+                            "tmallCartSupport": false,
+                            "type": "爆款特惠",
+                            "unLogBrandMember": false,
+                            "unLogShopVip": false,
+                            "unLogTbvip": false
+                        }
+                    ]
+                },
+                "89489479096": {
+                    "areaSold": true,
+                    "price": "2999.00",
+                    "promotionList": [
+                        {
+                            "amountPromLimit": 0,
+                            "amountRestriction": "",
+                            "basePriceType": "IcPrice",
+                            "canBuyCouponNum": 0,
+                            "endTime": 1459415172000,
+                            "extraPromPrice": "1978.00",
+                            "extraPromText": "197800",
+                            "extraPromTextType": 2,
+                            "extraPromType": 3,
+                            "limitProm": false,
+                            "postageFree": false,
+                            "price": "1999.00",
+                            "promType": "normal",
+                            "start": false,
+                            "startTime": 1447430400000,
+                            "status": 2,
+                            "tfCartSupport": false,
+                            "tmallCartSupport": false,
+                            "type": "爆款特惠",
+                            "unLogBrandMember": false,
+                            "unLogShopVip": false,
+                            "unLogTbvip": false
+                        }
+                    ]
+                },
+                "89489479098": {
+                    "areaSold": true,
+                    "price": "2999.00",
+                    "promotionList": [
+                        {
+                            "amountPromLimit": 0,
+                            "amountRestriction": "",
+                            "basePriceType": "IcPrice",
+                            "canBuyCouponNum": 0,
+                            "endTime": 1459415172000,
+                            "extraPromPrice": "1978.00",
+                            "extraPromText": "197800",
+                            "extraPromTextType": 2,
+                            "extraPromType": 3,
+                            "limitProm": false,
+                            "postageFree": false,
+                            "price": "1999.00",
+                            "promType": "normal",
+                            "start": false,
+                            "startTime": 1447430400000,
+                            "status": 2,
+                            "tfCartSupport": false,
+                            "tmallCartSupport": false,
+                            "type": "爆款特惠",
+                            "unLogBrandMember": false,
+                            "unLogShopVip": false,
+                            "unLogTbvip": false
+                        }
+                    ]
+                }
+            },
+            "queryProm": false,
+            "success": true,
+            "tmallShopProm": []
+        },
+        "memberRightDO": {
+            "activityType": 0,
+            "level": 0,
+            "postageFree": false,
+            "shopMember": false,
+            "success": true,
+            "time": 1,
+            "value": 0.5
+        },
+        "miscDO": {
+            "bucketId": 1,
+            "city": "北京",
+            "cityId": 110100,
+            "hasCoupon": true,
+            "region": "东城区",
+            "regionId": 110101,
+            "smartBannerFlag": "hidden",
+            "success": true,
+            "systemTime": "1457874296196",
+            "town": "东华门街道",
+            "townId": 110101001
+        },
+        "progressiveInfoDO": {
+            "double11Privilege": -1,
+            "newPCInstallment": true,
+            "progressiveEnable": false,
+            "rateMap": {
+                "3": 0,
+                "6": 0.045,
+                "9": 0.06,
+                "12": 0.08,
+                "18": 0.115,
+                "24": 0.15
+            },
+            "showProgressivePlan": true,
+            "success": true,
+            "text": "全店满600元最高可享3期分期免息",
+            "tipType": 0,
+            "tryBeforeBuy": false
+        },
+        "sellCountDO": {
+            "sellCount": 1,
+            "success": true
+        },
+        "soldAreaDataDO": {
+            "success": true
+        },
+        "tradeResult": {
+            "cartEnable": true,
+            "cartType": 2,
+            "miniTmallCartEnable": true,
+            "startTime": 1457495848000,
+            "success": true,
+            "tradeEnable": true
+        },
+        "userInfoDO": {
+            "activeStatus": 0,
+            "loginUserType": "buyer",
+            "success": true,
+            "userId": 0
+        }
+    },
+    "isSuccess": true
+}
