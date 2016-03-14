@@ -1,4 +1,4 @@
-{
+/*{
     defaultModel: {
         deliveryDO: {
             areaId: 110100,
@@ -112,11 +112,12 @@
         }
     },
     isSuccess: true
-}
+}*/
 //<meta name="microscope-data" content="pageId=948479474;prototypeId=2;siteId=2; shopId=113730029; userid=2225026818;">获取sellerId(userid)
 //请求https://rate.tmall.com/list_detail_rate.htm?itemId=42323050374&spuId=469325489&sellerId=2225026818 获取商品分类，以及
 //商品选择颜色分类后，链接后边加上参数&skuId=89489479096
 /**
+ * 根据valItemInfo的"pvs": "1627207:28329",找到"skuId": 89489479096
  * 解析思路，取出对应分类库存>0的商品价格展示。
  */
 {
