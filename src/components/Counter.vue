@@ -1,6 +1,13 @@
+<style>
+.taobao {
+  color: orange;
+  text-align: center;
+  font-size: 3em;
+}
+</style>
 <template>
-  <div class="counter">
-    <h1>I am a Counter Component. Edit me in dev mode.</h1>
+  <div class="taobao">
+    <h1>taobao.com</h1>
     <p>Current count: {{count}}</p>
   </div>
 </template>

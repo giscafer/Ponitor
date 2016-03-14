@@ -1,8 +1,11 @@
-<style scoped>
+<style>
 .container {
-  border: 1px solid #00f;
+  text-align: center;
+  font-size: 3em;
 }
 .red {
+  text-align: center;
+  font-size: 3em;
   color: #f00;
 }
 </style>
