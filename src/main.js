@@ -29,5 +29,5 @@ router.map({
   }
 })
 
-router.start(App, 'body')
+router.start(App, '#app')
 
