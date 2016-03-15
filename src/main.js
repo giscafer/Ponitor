@@ -11,6 +11,10 @@ const router = new VueRouter()
 
 // 路由
 router.map({
+  '/': {
+    name: '所有',
+    component: require('./views/index.vue')
+  },
   '/apps': {
     name: 'apps',
     component: require('./components/A.vue')
