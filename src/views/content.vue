@@ -2,7 +2,7 @@
 <div class="jumbotron">
   <div class="container" id="add">
       <h4>关注价格，在最适合的时候购买</h4>
-      <input class="control-input" v-model="appUrl" @keyup.enter="add" type="text" placeholder="输入商品URL"><a href="javascript:void(0)" @click="add">添加</a>
+      <input class="control-input" v-model="goodUrl" @keyup.enter="add" type="text" placeholder="输入商品URL"><a href="javascript:void(0)" @click="add">添加</a>
   </div>
 </div>
 <div class="container bs-docs-container">
@@ -21,7 +21,63 @@
     <!-- 路由外链 -->
     <router-view></router-view>
 </template>
+<script>
+  import request from 'superagent'
+  import notie from 'notie'
+  import nprogress from 'nprogress'
+  
+  export default {
+    data(){
+      return {
+        goods:[],
+        adding:false,
+        goodUrl:''
+      }
+    },
+    method:{
+      add(){
+        console.log('click add')
+        if (!this.adding) {
+          nprogress.start();
+          this.adding=true;
+          request
+            .post('api/good')
+            .send({
+              url:this.goodUrl
+            })
+            .end((err,res)=>{
+              nprogress.done();
+              this.adding=false;
+              if(err){
+                console.log(err);
+                notie.alert(4,err.message,1.5);
+              }else{
+                notie.alert(2,'添加成功',1.5);
+                this.goodUrl='';
+                this.goods.push(res.body);
+              }
+            })
 
+        }
+      }
+    },
+    route: {
+      activate(){
+        nprogress.start()
+        request
+          .get('/api/good')
+          .end((err, res) => {
+            nprogress.done()
+            if (err) {
+              notie.alert(3, err.message, 1.5)
+            } else {
+              this.goods = res.body
+            }
+          })
+      }
+    }
+  }
+</script>
 <style>
 	 #add{
       text-align: center;

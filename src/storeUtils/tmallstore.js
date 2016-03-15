@@ -16,6 +16,7 @@ const priceReqUrl='https://ald.taobao.com/recommend.htm';
  * @return  {Array<Object>}    [goodInfo]
  */
 function fetchGoodInfo(itemId) {
+    itemId='42323050374';//test
     return new Promise((resolve, reject) => {
         request.get(priceReqUrl+'?needCount=16&appID=03130&recommendItemIds='+itemId)
             .set('user-agent','Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.3')
@@ -24,16 +25,26 @@ function fetchGoodInfo(itemId) {
                     reject(err);
                 } else {
                     const resultJson=JSON.parse(res.text);
-                    resolve(resultJson.itemList);
+                    const resInfo=resultJson.itemList[0];
+                    let info={};
+                    info.skuId=resInfo.id;
+                    info.name=resInfo.title;
+                    info.type='tmall';
+                    info.image=resInfo.img;
+                    info.url=resInfo.url;
+                    info.description=resInfo.title;
+                    info.marketPrice=resInfo.marketPrice;
+                    info.oldPrice=resInfo.price;
+                    resolve(info);
                 }
             });
     });
 }
 //test
-fetchGoodInfo('42323050374').then((goodInfo)=>{
+/*fetchGoodInfo('42323050374').then((goodInfo)=>{
 	console.log(goodInfo);
 }).catch((err)=>{
 	console.log(err);
-});
+});*/
 
 module.exports = { fetchGoodInfo };

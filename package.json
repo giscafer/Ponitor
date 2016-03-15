@@ -9,13 +9,20 @@
     "test": "karma start build/karma.conf.js"
   },
   "dependencies": {
+    "bluebird": "^3.3.4",
     "body-parser": "^1.15.0",
     "cheerio": "^0.20.0",
+    "connect-mongo": "^1.1.0",
+    "connect-redis": "^3.0.2",
     "cookie-parser": "^1.4.1",
     "ejs-mate": "^2.3.0",
     "express": "^4.13.4",
     "express-session": "^1.13.0",
+    "mongo-connect": "0.0.6",
     "mongoose": "^4.4.6",
+    "notie": "^2.1.0",
+    "nprogress": "^0.2.0",
+    "redis": "^2.5.1",
     "superagent": "^1.7.2",
     "vue": "^1.0.17"
   },

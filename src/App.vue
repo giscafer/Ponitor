@@ -8,7 +8,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#"  class="">登录</a></li>
-                <li><a href="#"  class="">注册</a></li>
+                <li><a href="#"   @click="add">注册</a></li>
             </ul>
         </div >
     </div>
@@ -16,6 +16,7 @@
 <comp-c></comp-c>
 </template>
 <script>
+ 
   import CompC from './views/content.vue'
 
   export default {
