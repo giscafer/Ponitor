@@ -9,11 +9,11 @@
      <div class="cate">
      <nav>
         <!-- 使用指令 v-link 进行导航 -->
-            <a href="#" v-link="{path:'/'}">所有</a>
-            <a href="#" v-link="{path:'/jd'}">京东</a>
-            <a href="#" v-link="{path:'/tmall'}">天猫</a>
-            <a href="#" v-link="{path:'/taobao'}">淘宝</a>
-            <a href="#" v-link="{path:'/apps'}">Apple App</a>
+            <a href="#" v-link="{path:'/', exact: true }">所有</a>
+            <a href="#" v-link="{path:'/jd', exact: true }">京东</a>
+            <a href="#" v-link="{path:'/tmall', exact: true }">天猫</a>
+            <a href="#" v-link="{path:'/taobao', exact: true }">淘宝</a>
+            <a href="#" v-link="{path:'/apps', exact: true }">Apple App</a>
      </nav>
     </div>
 
@@ -34,7 +34,7 @@
         goodUrl:''
       }
     },
-    method:{
+    methods:{
       add(){
         console.log('click add')
         if (!this.adding) {
@@ -60,21 +60,6 @@
 
         }
       }
-    },
-    route: {
-      activate(){
-        nprogress.start()
-        request
-          .get('/api/good')
-          .end((err, res) => {
-            nprogress.done()
-            if (err) {
-              notie.alert(3, err.message, 1.5)
-            } else {
-              this.goods = res.body
-            }
-          })
-      }
     }
   }
 </script>
@@ -93,7 +78,7 @@
         padding-bottom: .1em;
         outline: none;
       }
-
+      
       a{
         color: #000;
         background-image: linear-gradient(#fcfcfc, #eee);
@@ -104,6 +89,9 @@
         border-radius: 0 2em 2em 0;
         padding-right: 1em;
       }
+    }
+     .v-link-active {
+        border-bottom-color: #000;
     }
     .cate {
         /*margin-top: 2em;*/

@@ -5,6 +5,7 @@
 
 const cheerio = require('cheerio');
 const request = require('superagent');
+const iconv = require('iconv-lite');
 // const tmallUrl = 'https://detail.tmall.com/item.htm';
 // eg:https://detail.tmall.com/item.htm?id=42323050374;
 const priceReqUrl='https://ald.taobao.com/recommend.htm';
@@ -16,7 +17,7 @@ const priceReqUrl='https://ald.taobao.com/recommend.htm';
  * @return  {Array<Object>}    [goodInfo]
  */
 function fetchGoodInfo(itemId) {
-    itemId='42323050374';//test
+    itemId='27156624072';//test
     return new Promise((resolve, reject) => {
         request.get(priceReqUrl+'?needCount=16&appID=03130&recommendItemIds='+itemId)
             .set('user-agent','Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.3')
@@ -24,7 +25,8 @@ function fetchGoodInfo(itemId) {
                 if (err) {
                     reject(err);
                 } else {
-                    const resultJson=JSON.parse(res.text);
+                    const decodeStr=iconv.decode(new Buffer(res.text),'UTF-8');
+                    const resultJson=JSON.parse(decodeStr);
                     const resInfo=resultJson.itemList[0];
                     let info={};
                     info.skuId=resInfo.id;
@@ -33,18 +35,18 @@ function fetchGoodInfo(itemId) {
                     info.image=resInfo.img;
                     info.url=resInfo.url;
                     info.description=resInfo.title;
-                    info.marketPrice=resInfo.marketPrice;
-                    info.oldPrice=resInfo.price;
+                    // info.marketPrice=resInfo.marketPrice;
+                    info.price=resInfo.price;
                     resolve(info);
                 }
             });
     });
 }
 //test
-/*fetchGoodInfo('42323050374').then((goodInfo)=>{
-	console.log(goodInfo);
-}).catch((err)=>{
-	console.log(err);
-});*/
+// fetchGoodInfo('42323050374').then((goodInfo)=>{
+// 	console.log(goodInfo);
+// }).catch((err)=>{
+// 	console.log(err);
+// });
 
 module.exports = { fetchGoodInfo };

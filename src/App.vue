@@ -36,9 +36,6 @@
       font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
       -webkit-font-smoothing: antialiased;
   } 
-    .v-link-active {
-        border-bottom-color: #000;
-    }
     #top{
         margin-bottom:0px;
     }
