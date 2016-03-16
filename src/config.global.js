@@ -7,7 +7,7 @@ module.exports={
     host: '127.0.0.1',
     port: 18080,
     // mongodb 配置
-    dev_dbUrl: 'mongodb://127.0.0.1/ponitor_dev',
+    dev_dbUrl: 'mongodb://127.0.0.1/ponitor',
     //process.env.NODE_ENV=='development' 则数据库连接使用dev_dbUrl，反之为dbConfig
     dbConfig: {
         "host": "mongo.duapp.com",

@@ -4,11 +4,12 @@
 'use strict'
 
 const cheerio = require('cheerio');
-const request = require('superagent');
+//还搞不清楚为什么使用superagent请求阿里的乱码使用iconv-lite解决不了，这里用了原生的request
+const request = require('request');
 const iconv = require('iconv-lite');
 // const tmallUrl = 'https://detail.tmall.com/item.htm';
 // eg:https://detail.tmall.com/item.htm?id=42323050374;
-const priceReqUrl='https://ald.taobao.com/recommend.htm';
+const priceReqUrl = 'https://ald.taobao.com/recommend.htm';
 //eg：https://ald.taobao.com/recommend.htm?recommendItemIds=524251757444,27156624072&needCount=16&appID=03130
 /**
  * fetch tmall good info
@@ -17,36 +18,52 @@ const priceReqUrl='https://ald.taobao.com/recommend.htm';
  * @return  {Array<Object>}    [goodInfo]
  */
 function fetchGoodInfo(itemId) {
-    itemId='27156624072';//test
+    itemId = '42323050374'; //test
     return new Promise((resolve, reject) => {
-        request.get(priceReqUrl+'?needCount=16&appID=03130&recommendItemIds='+itemId)
-            .set('user-agent','Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.3')
-            .end((err, res) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    const decodeStr=iconv.decode(new Buffer(res.text),'UTF-8');
-                    const resultJson=JSON.parse(decodeStr);
-                    const resInfo=resultJson.itemList[0];
-                    let info={};
-                    info.skuId=resInfo.id;
-                    info.name=resInfo.title;
-                    info.type='tmall';
-                    info.image=resInfo.img;
-                    info.url=resInfo.url;
-                    info.description=resInfo.title;
-                    // info.marketPrice=resInfo.marketPrice;
-                    info.price=resInfo.price;
-                    resolve(info);
+        var body = [],
+            size = 0;
+        request.get({
+                url: priceReqUrl + '?needCount=16&appID=03130&recommendItemIds=' + itemId,
+                headers: {
+
                 }
+            })
+            .on('response', function(response) {
+                //   res.set(response.headers);
+                response.setEncoding = 'utf8';
+                response.on('data', function(chunk) {
+                    body.push(chunk);
+                    size += chunk.length;
+                });
+            })
+            .on('error', function(err) {
+                reject(err);
+            })
+            .on('end', function() {
+               
+                const bff = Buffer.concat(body , size);
+                const text = iconv.decode(bff, 'GBK');
+                const resultJson = JSON.parse(text);
+                const resInfo = resultJson.itemList[0];
+                let info = {};
+                info.goodId = resInfo.id;
+                info.name = resInfo.title;
+                info.type = 'tmall';
+                info.image = resInfo.img;
+                info.url = resInfo.url;
+                info.description = resInfo.title;
+                info.price = resInfo.price;
+                resolve(info);
             });
+
+
     });
 }
 //test
 // fetchGoodInfo('42323050374').then((goodInfo)=>{
-// 	console.log(goodInfo);
+//  console.log(goodInfo);
 // }).catch((err)=>{
-// 	console.log(err);
+//  console.log(err);
 // });
 
 module.exports = { fetchGoodInfo };

@@ -3,9 +3,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
-
+// mongoose.Promise = global.Promise;
 const GoodSchema = new Schema({
-    skuId: { type: String }, //商品ID
+    goodId: { type: String }, //商品ID
     name: { type: String },
     oldPrice: { type: Number, default: 0 }, //原价格
     marketPrice: { type: Number, default: 0 }, //最新价格
@@ -18,7 +18,7 @@ const GoodSchema = new Schema({
 });
 
 //创建索引
-GoodSchema.index({ skuId: 1 }, { unique: true });
+GoodSchema.index({ goodId: 1 }, { unique: true });
 GoodSchema.index({ type: 1 });
 
 const GoodModel = mongoose.model('Good', GoodSchema);
@@ -27,7 +27,7 @@ const GoodModel = mongoose.model('Good', GoodSchema);
  */
 function add(info) {
     return new Promise((resolve, reject) => {
-        GoodModel.findOne({ skuId: info.skuId, type: info.type }).then((good) => {
+        GoodModel.findOne({ goodId: info.goodId, type: info.type }).exec().then((good) => {
             if (good) {
                 reject({
                     status: 402,
@@ -35,7 +35,7 @@ function add(info) {
                 });
             } else {
                 GoodModel.create({
-                        skuId: info.skuId,
+                        goodId: info.goodId,
                         name: info.name,
                         oldPrice: info.price,
                         marketPrice: info.price,
@@ -44,7 +44,7 @@ function add(info) {
                         url: info.url,
                         type: info.type
                     })
-                    .then(good => { resolve(good) })
+                    .then(good => { console.log('ssss--------------');resolve(good); })
                     .catch(err => { reject(err) });
             }
         }).catch(err => reject(err));

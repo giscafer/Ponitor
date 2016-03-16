@@ -16,7 +16,9 @@ router.get('/good', (req, res) => {
 router.post('/good', (req, res) => {
     const goodUrl = req.body.url;
     tamllStore.fetchGoodInfo(goodUrl)
-    	.then(info=>goodModel.add(info))
+        .then(info => { 
+            goodModel.add(info)
+         })
         .then(good => res.send(good))
         .catch(err => res.send(err));
 });
