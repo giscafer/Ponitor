@@ -1,5 +1,5 @@
 /**
- * tmall good crawler
+ * tmall crawler
  */
 'use strict'
 
@@ -7,18 +7,16 @@ const cheerio = require('cheerio');
 //还搞不清楚为什么使用superagent请求阿里的乱码使用iconv-lite解决不了，这里用了原生的request
 const request = require('request');
 const iconv = require('iconv-lite');
-// const tmallUrl = 'https://detail.tmall.com/item.htm';
 // eg:https://detail.tmall.com/item.htm?id=42323050374;
 const priceReqUrl = 'https://ald.taobao.com/recommend.htm';
 //eg：https://ald.taobao.com/recommend.htm?recommendItemIds=524251757444,27156624072&needCount=16&appID=03130
 /**
- * fetch tmall good info
+ * fetch tmall&taobao good's info
  * @param   {String}   itemId  the good id string
  * eg：'42323050374' or '524251757444,27156624072'
  * @return  {Array<Object>}    [goodInfo]
  */
 function fetchGoodInfo(itemId) {
-    itemId = '42323050374'; //test
     return new Promise((resolve, reject) => {
         var body = [],
             size = 0;
@@ -40,7 +38,6 @@ function fetchGoodInfo(itemId) {
                 reject(err);
             })
             .on('end', function() {
-               
                 const bff = Buffer.concat(body , size);
                 const text = iconv.decode(bff, 'GBK');
                 const resultJson = JSON.parse(text);
@@ -53,9 +50,9 @@ function fetchGoodInfo(itemId) {
                 info.url = resInfo.url;
                 info.description = resInfo.title;
                 info.price = resInfo.price;
+                info.priceText='￥'+resInfo.price;
                 resolve(info);
             });
-
 
     });
 }

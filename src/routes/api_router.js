@@ -5,7 +5,7 @@ const router = express.Router();
 
 const tamllStore = require('../storeUtils/tmallstore');
 const goodModel = require('../models/good');
-
+const Crawler=require('../storeUtils')
 /* good api. */
 router.get('/good', (req, res) => {
     goodModel.list({}, {})
@@ -15,6 +15,17 @@ router.get('/good', (req, res) => {
 
 router.post('/good', (req, res) => {
     const goodUrl = req.body.url;
+    Crawler.crawInfo(goodUrl)
+        .then(info => { 
+            console.log(info);
+            // goodModel.add(info);
+         })
+         .catch(err => res.send(err))
+        .then(good => res.send(good))
+        .catch(err => res.send(err));
+});
+/*router.post('/good', (req, res) => {
+    const goodUrl = req.body.url;
     tamllStore.fetchGoodInfo(goodUrl)
         .then(info => { 
             goodModel.add(info)
@@ -22,6 +33,6 @@ router.post('/good', (req, res) => {
         .then(good => res.send(good))
         .catch(err => res.send(err));
 });
-
+*/
 module.exports = router;
 // export default router;

@@ -9,7 +9,9 @@ const GoodSchema = new Schema({
     name: { type: String },
     oldPrice: { type: Number, default: 0 }, //原价格
     marketPrice: { type: Number, default: 0 }, //最新价格
+    priceText:{type:String},//加单位的价格
     image: { type: String }, //图片url
+    screenshot:[{type:String}],//截屏
     description: { type: String },
     url: { type: String }, //商品链接
     type: { type: String }, //商品分类

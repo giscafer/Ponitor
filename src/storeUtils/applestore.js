@@ -6,7 +6,7 @@
 const cheerio=require('cheerio');
 const request=require('superagent');
 
-const url='https://itunes.apple.com/cn/app/garageband/id408709785?mt=8';
+
 
 function fetchAppInfo(url){
     return new Promise((resolve,reject)=>{
@@ -21,7 +21,6 @@ function fetchAppInfo(url){
                    name:[],
                    screenshot:[]
                };
-               
                itemProps.each((index,item)=>{
                    const $item=$(item);
                     const  key= $item.prop('itemprop');
@@ -50,15 +49,36 @@ function fetchAppInfo(url){
                             break;
                     }
                });
-               resolve(info);
+                let appinfo = {};
+                appinfo.goodId = getId(url);
+                appinfo.name = info.name[0];
+                appinfo.type = 'apple';
+                appinfo.image = info.image;
+                appinfo.screenshot = info.screenshot;
+                appinfo.url = url;
+                appinfo.description = info.description;
+                appinfo.price = info.price;
+                appinfo.marketPrice = info.price;
+                appinfo.priceText=info.priceText;
+               resolve(appinfo);
            } 
         });
     });
 }
-fetchAppInfo(url).then((appInfo)=>{
+
+function getId(url){
+    if(!url) return "";
+    const start=url.indexOf('/id')+3;
+    const end=url.indexOf('?');
+    const id=url.substring(start,end)
+    return id;
+}
+
+module.exports={fetchAppInfo};
+
+//const url='https://itunes.apple.com/cn/app/garageband/id408709785?mt=8';
+/*fetchAppInfo(url).then((appInfo)=>{
     console.log(appInfo);
 }).catch((err)=>{
     console.log(err);
-});
-
-module.exports={fetchAppInfo}
+});*/
