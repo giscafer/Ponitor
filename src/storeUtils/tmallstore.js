@@ -20,6 +20,12 @@ function fetchGoodInfo(itemId) {
     return new Promise((resolve, reject) => {
         var body = [],
             size = 0;
+        if(!itemId){
+            reject({
+                status:404,
+                message:'商品ID获取失败，请填写正确的地址！'
+            });
+        }
         request.get({
                 url: priceReqUrl + '?needCount=16&appID=03130&recommendItemIds=' + itemId,
                 headers: {
@@ -43,14 +49,18 @@ function fetchGoodInfo(itemId) {
                 const resultJson = JSON.parse(text);
                 const resInfo = resultJson.itemList[0];
                 let info = {};
-                info.goodId = resInfo.id;
-                info.name = resInfo.title;
-                info.type = 'tmall';
-                info.image = resInfo.img;
-                info.url = resInfo.url;
-                info.description = resInfo.title;
-                info.price = resInfo.price;
-                info.priceText='￥'+resInfo.price;
+                try{
+                    info.goodId = resInfo.id;
+                    info.name = resInfo.title;
+                    info.type = 'tmall';
+                    info.image = resInfo.img;
+                    info.url = resInfo.url;
+                    info.description = resInfo.title;
+                    info.price = resInfo.price;
+                    info.priceText='￥'+resInfo.price;
+                }catch(e){
+                    reject(e);
+                }
                 resolve(info);
             });
 

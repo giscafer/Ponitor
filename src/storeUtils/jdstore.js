@@ -11,7 +11,7 @@ const request = require('superagent');
 //http://item.jd.com/bigimage.aspx?id=10053073399
 function getPrice(url) {
     const skuidsStr=url.replace('http://item.jd.com/','');
-    const len=skuidsStr.indexOf('.');
+    const len=skuidsStr.indexOf('.htm');
     const skuids=skuidsStr.substring(0,len);
     
     return new Promise((resolve, reject) => {
@@ -25,7 +25,6 @@ function getPrice(url) {
                 	const priceInfo=eval(res.text)[0];
                 	priceInfo.url=url;
                 	priceInfo.id=skuids;
-                	console.log(priceInfo)
                     resolve(priceInfo);
                 }
             });

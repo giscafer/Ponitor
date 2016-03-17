@@ -25,7 +25,6 @@
   import request from 'superagent'
   import notie from 'notie'
   import nprogress from 'nprogress'
-  
   export default {
     data(){
       return {
@@ -36,7 +35,6 @@
     },
     methods:{
       add(){
-        console.log('click add')
         if (!this.adding) {
           nprogress.start();
           this.adding=true;
@@ -46,15 +44,20 @@
               url:this.goodUrl
             })
             .end((err,res)=>{
+              const msg=res.body.message;
               nprogress.done();
               this.adding=false;
               if(err){
-                console.log(err);
-                notie.alert(4,err.message,1.5);
+                notie.alert(3,err.message,2);
+              }else if(msg){
+                notie.alert(4,msg,2);
               }else{
-                notie.alert(2,'添加成功',1.5);
+                notie.alert(1,'添加成功',1.5);
                 this.goodUrl='';
                 this.goods.push(res.body);
+                console.log(this.$router);
+                //并不管用
+                this.$router.go({ name: 'all', params: { type: 'all' }});
               }
             })
 

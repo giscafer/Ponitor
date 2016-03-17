@@ -17,12 +17,16 @@ router.post('/good', (req, res) => {
     const goodUrl = req.body.url;
     Crawler.crawInfo(goodUrl)
         .then(info => { 
-            console.log(info);
-            // goodModel.add(info);
+            goodModel.add(info) .then(good =>{
+             res.send(good);
+            }).catch(err =>{
+             res.send(err)
+            });
          })
-         .catch(err => res.send(err))
-        .then(good => res.send(good))
-        .catch(err => res.send(err));
+         .catch(err =>{
+              res.send(err)
+         })
+       
 });
 /*router.post('/good', (req, res) => {
     const goodUrl = req.body.url;

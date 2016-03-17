@@ -4,7 +4,7 @@
 'use strict'
 
 const tmallCrawler = require('./tmallstore').fetchGoodInfo;
-const jdCrawler = require('./jdstore').fetchGoodInfo;
+const jdCrawler = require('./jdstore').getPrice;
 const appleCrawler = require('./applestore').fetchAppInfo;
 const urlParser = require('./utils').urlParser;
 

@@ -55,7 +55,7 @@ h2 {
       }
     },  
     route: {
-      data(){
+      activate(){
         nprogress.start()
         request
           .get('/api/good')

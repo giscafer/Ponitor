@@ -46,7 +46,9 @@ function add(info) {
                         url: info.url,
                         type: info.type
                     })
-                    .then(good => { console.log('ssss--------------');resolve(good); })
+                    .then(good => {
+                        resolve(good);
+                     })
                     .catch(err => { reject(err) });
             }
         }).catch(err => reject(err));
