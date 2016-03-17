@@ -25,7 +25,10 @@ function getPrice(url) {
                 	const priceInfo=eval(res.text)[0];
                 	priceInfo.url=url;
                 	priceInfo.id=skuids;
-                    resolve(priceInfo);
+                    // resolve(priceInfo);
+                    fetchGoodInfo(priceInfo).then(info=>{
+                        resolve(info);
+                    }).catch(err=>reject(err));
                 }
             });
     });
@@ -68,4 +71,4 @@ function fetchGoodInfo(obj) {
     console.log(err);
 });*/
 
-module.exports = {getPrice,fetchGoodInfo };
+module.exports = {getPrice};
