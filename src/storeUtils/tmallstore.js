@@ -4,7 +4,6 @@
 'use strict'
 
 const cheerio = require('cheerio');
-//还搞不清楚为什么使用superagent请求阿里的乱码使用iconv-lite解决不了，这里用了原生的request
 const request = require('request');
 const iconv = require('iconv-lite');
 // eg:https://detail.tmall.com/item.htm?id=42323050374;
@@ -18,7 +17,7 @@ const priceReqUrl = 'https://ald.taobao.com/recommend.htm';
  */
 function fetchGoodInfo(itemId) {
     return new Promise((resolve, reject) => {
-        var body = [],
+        const body = [],
             size = 0;
         if(!itemId){
             reject({
