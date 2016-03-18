@@ -41,6 +41,7 @@ function add(info) {
                         name: info.name,
                         oldPrice: info.price,
                         marketPrice: info.price,
+                        priceText: info.priceText,
                         image: info.image,
                         description: info.description,
                         url: info.url,

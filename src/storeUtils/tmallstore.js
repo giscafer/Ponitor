@@ -17,7 +17,7 @@ const priceReqUrl = 'https://ald.taobao.com/recommend.htm';
  */
 function fetchGoodInfo(itemId) {
     return new Promise((resolve, reject) => {
-        const body = [],
+        let body = [],
             size = 0;
         if(!itemId){
             reject({
