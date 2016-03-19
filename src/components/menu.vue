@@ -9,23 +9,20 @@
      <div class="cate">
      <nav>
         <!-- 使用指令 v-link 进行导航 -->
-            <a href="#" v-link="{path:'/', exact: true }">所有</a>
-            <a href="#" v-link="{path:'/jd', exact: true }">京东</a>
-            <a href="#" v-link="{path:'/tmall', exact: true }">天猫</a>
-            <a href="#" v-link="{path:'/taobao', exact: true }">淘宝</a>
-            <a href="#" v-link="{path:'/apps', exact: true }">Apple App</a>
+            <a href="#" v-link="{ name: 'all', query: { type: 'all' }}">所有</a>
+            <a href="#" v-link="{ name: 'jd', query: { type: 'jd' }}">京东</a>
+            <a href="#" v-link="{ name: 'alibaba', query: { type: 'alibaba' }}">天猫|淘宝</a>
+            <a href="#" v-link="{ name: 'apple', query: { type: 'apple' }}">Apple App</a>
      </nav>
     </div>
-
 </div>
-    <!-- 路由外链 -->
-    <router-view></router-view>
 </template>
 <script>
   import request from 'superagent'
   import notie from 'notie'
   import nprogress from 'nprogress'
   export default {
+    replace:true,
     data(){
       return {
         goods:[],

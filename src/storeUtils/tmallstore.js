@@ -51,7 +51,7 @@ function fetchGoodInfo(itemId) {
                 try{
                     info.goodId = resInfo.id;
                     info.name = resInfo.title;
-                    info.type = 'tmall';
+                    info.type = 'alibaba';
                     info.image = resInfo.img;
                     info.url = resInfo.url;
                     info.description = resInfo.title;

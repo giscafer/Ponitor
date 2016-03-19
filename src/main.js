@@ -13,23 +13,19 @@ const router = new VueRouter()
 router.map({
   '/': {
     name: 'all',
-    component: require('./views/index.vue')
+    component: require('./views/list.vue')
   },
   '/apps': {
-    name: 'apps',
-    component: require('./components/A.vue')
+    name: 'apple',
+    component: require('./views/list.vue')
   },
-  '/tmall': {
-    name: 'tmall',
-    component: require('./components/B.vue')
-  },
-  '/taobao': {
-    name: 'taobao',
-    component: require('./components/Counter.vue')
+  '/alibaba': {
+    name: 'alibaba',
+    component: require('./views/list.vue')
   },
   '/jd': {
     name: 'jd',
-    component: require('./components/JD.vue')
+    component: require('./views/list.vue')
   }
 })
 
