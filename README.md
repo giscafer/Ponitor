@@ -1,6 +1,8 @@
 # Pomitor
 
-[ P ] rice + M [ onitor ] = Ponitor 价格监测
+[ P ] rice + M [ onitor ] = Ponitor 价格监控
+
+可添加天猫、淘宝、京东、Apple App的商品，监控添加商品价格发生变动时，推送消息！
 
 # Usage
 
