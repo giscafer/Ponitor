@@ -24,6 +24,7 @@ function fetchGoodInfo(itemId) {
                 status:404,
                 message:'商品ID获取失败，请填写正确的地址！'
             });
+            return;
         }
         request.get({
                 url: priceReqUrl + '?needCount=16&appID=03130&recommendItemIds=' + itemId,
@@ -47,6 +48,13 @@ function fetchGoodInfo(itemId) {
                 const text = iconv.decode(bff, 'GBK');
                 const resultJson = JSON.parse(text);
                 const resInfo = resultJson.itemList[0];
+                if(!resInfo){
+                    reject({
+                        status:501,
+                        message:'获取商品信息失败！'
+                    });
+                       return;
+                }
                 let info = {};
                 try{
                     info.goodId = resInfo.id;
@@ -58,7 +66,12 @@ function fetchGoodInfo(itemId) {
                     info.price = resInfo.price;
                     info.priceText='￥'+resInfo.price;
                 }catch(e){
-                    reject(e);
+                    console.log(e)
+                    reject({
+                        status:501,
+                        message:e
+                    });
+                   return;
                 }
                 resolve(info);
             });
