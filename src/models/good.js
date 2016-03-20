@@ -55,9 +55,22 @@ function add(info) {
         }).catch(err => reject(err));
     });
 }
-
 /**
- * 查询
+ * update
+ */
+function update(id, info){
+  return new Promise((resolve, reject) => {
+    GoodModel.update(info, {
+      where: {
+        id: id
+      }
+    })
+    .then(good => resolve(good))
+    .catch(err => reject(err));
+  });
+}
+/**
+ * 查询列表
  */
 function list(query, opt) {
     return new Promise((resolve, reject) => {
@@ -67,4 +80,4 @@ function list(query, opt) {
     });
 }
 
-module.exports = { add, list };
+module.exports = { add,update,list };
