@@ -4,17 +4,21 @@
 
 可添加天猫、淘宝、京东、Apple App的商品，监控商品价格发生变动时，推送消息！
 
+	vue+webpack+node.js+mongodb
+
 # Usage
 
->npm install
+- `npm install`
 
->gulp 
+- `gulp`
 
 or
 
-> npm run build
+- `npm install`
 
-> node app.js
+- `npm run build`
+
+- `node app.js`
 
 
 # Screenshot
