@@ -64,6 +64,7 @@ function fetchGoodInfo(itemId) {
                     info.url = resInfo.url;
                     info.description = resInfo.title;
                     info.price = resInfo.price;
+                    info.marketPrice = resInfo.price;
                     info.priceText='￥'+resInfo.price;
                 }catch(e){
                     console.log(e)

@@ -61,7 +61,6 @@ function fetchGoodInfo(obj) {
                 let info = {
                     screenshot: []
                 };
-                console.log(obj);
                 try{
                     const $ = cheerio.load(text);
                     const $intro = $('#product-intro');
