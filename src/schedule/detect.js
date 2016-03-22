@@ -7,7 +7,7 @@ const schedule=require('node-schedule');
 const GoodModel=require('../models/good');
 const Crawler=require('../storeUtils');
 
-function check(){
+function detect(){
 	return new Promise((resolve,reject)=>{
 		let count=0;
 		GoodModel.list({},{}).then(goods=>goods.map((good,index)=>{
@@ -36,7 +36,7 @@ function check(){
 }
 
 function cronSchedule(){
-	check().then(() => console.log('Checking finsihed!'));
+	detect().then(() => console.log('detecting finsihed!'));
 }
 //启动的时候执行一次
 cronSchedule();
@@ -44,4 +44,4 @@ cronSchedule();
 let j = schedule.scheduleJob('0 * */2 * * *', () => cronSchedule());
 
 
-module.exports = { check }
+module.exports = { detect };

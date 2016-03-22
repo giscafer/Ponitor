@@ -72,8 +72,8 @@ if (process.env.NODE_ENV=='development') {
 
 app.use('/',webRouter);
 app.use('/api',apiRouter);
-//start check
-require('./src/schedule/check.js');
+//start detect
+require('./src/schedule/detect.js');
 
 app.listen(18080, function() {
     console.log("Ponitor listening on port %d", 18080);
