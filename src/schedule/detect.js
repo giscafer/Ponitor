@@ -6,6 +6,7 @@
 const schedule=require('node-schedule');
 const GoodModel=require('../models/good');
 const Crawler=require('../storeUtils');
+const wechat=require('../hook/wechat');
 
 function detect(){
 	return new Promise((resolve,reject)=>{
@@ -19,8 +20,12 @@ function detect(){
 					if(count===goods.length){
 						resolve();
 					}
+					let msg='',
+						title=good.name;
+					let tmpl='，原价格：'+good.marketPrice+'，现价格：'+goodInfo.marketPrice;
+					const status=Number(goodInfo.marketPrice)-Number(good.marketPrice);
 					//监测价格是否变化
-					if(Number(goodInfo.marketPrice)!==Number(good.marketPrice)){
+					if(status!==0){
 						console.log(good.name+' price had changed!');
 						GoodModel.update(good._id, {
 						  oldPrice:good.marketPrice,
@@ -28,11 +33,29 @@ function detect(){
 						  marketPrice: goodInfo.marketPrice
 						})
 						.catch(err => reject(err));
+						//拼接微信图文信息
+						if(status>0){
+							title+=' 涨价了';
+						}else{
+							title+=' 降价了';
+						}
+						msg=title+tmpl;
+						let article={
+						   "title":title,
+						   "description":msg,
+						   "url":good.url,
+						   "picurl":good.image
+						};
+						wechat.sendNews('lhb1020279026',[article],(err,res)=>{
+							if(err){
+								console.log('微信发送失败'+err);
+							}
+						});
 					}
 				});
 			}
-		}))
-	})
+		}));
+	});
 }
 
 function cronSchedule(){

@@ -4,3 +4,4 @@ node_modules/
 node_modules1111/
 dist/
 npm-debug.log
+appid.json
