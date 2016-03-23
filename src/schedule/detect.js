@@ -25,7 +25,7 @@ function detect(){
 					let tmpl='，原价格：'+good.marketPrice+'，现价格：'+goodInfo.marketPrice;
 					const status=Number(goodInfo.marketPrice)-Number(good.marketPrice);
 					//监测价格是否变化
-					if(status!==0){
+					if(status==0){
 						console.log(good.name+' price had changed!');
 						GoodModel.update(good._id, {
 						  oldPrice:good.marketPrice,
@@ -46,7 +46,8 @@ function detect(){
 						   "url":good.url,
 						   "picurl":good.image
 						};
-						wechat.sendNews('lhb1020279026',[article],(err,res)=>{
+						//openid在24小时内和公众号无交互会失效
+						wechat.sendNews('ouBpxuMRG8D',[article],(err,res)=>{
 							if(err){
 								console.log('微信发送失败'+err);
 							}
@@ -64,7 +65,7 @@ function cronSchedule(){
 //启动的时候执行一次
 cronSchedule();
 //每2小时执行监测一次
-let j = schedule.scheduleJob('0 * */2 * * *', () => cronSchedule());
+let j = schedule.scheduleJob('* */2 * * *', () => cronSchedule());
 
 
 module.exports = { detect };

@@ -9,6 +9,7 @@ const cache=require('../common/cache');
 const devMode=process.env.NODE_ENV==='development'?true:false;
 const filePath=path.resolve(__dirname, '../', 'access_token.txt');
 
+
 const api = new WechatAPI(appInfo.AppID, appInfo.AppSecret, function(callback) {
 	// 传入一个获取全局token的方法
 	// 开发模式写文件
@@ -38,4 +39,6 @@ const api = new WechatAPI(appInfo.AppID, appInfo.AppSecret, function(callback) {
   
 });
 
-module.exports = { api };
+const api1= new WechatAPI(appInfo.AppID, appInfo.AppSecret);
+
+module.exports = api1;

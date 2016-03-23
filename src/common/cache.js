@@ -42,5 +42,4 @@ function set(key, value, time, callback) {
     var duration = (new Date() - t);
     logger.debug("Cache", "set", key, (duration + 'ms').green);
 }
-
-module.exports = {set, get };
+module.exports = { get:get,set:set };
