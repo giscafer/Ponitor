@@ -63,7 +63,7 @@ function cronSchedule(){
 	detect().then(() => console.log('detecting finsihed!'));
 }
 //启动的时候执行一次
-cronSchedule();
+// cronSchedule();
 //每2小时执行监测一次
 let j = schedule.scheduleJob('* */2 * * *', () => cronSchedule());
 

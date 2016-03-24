@@ -1,5 +1,5 @@
 <template>
-<div class="jumbotron">
+<div id="menu" class="jumbotron">
   <div class="container" id="add">
       <h4>关注价格，在最适合的时候购买</h4>
       <input class="control-input" v-model="goodUrl" @keyup.enter="add" type="text" placeholder="输入商品URL"><a href="javascript:void(0)" @click="add">添加</a>
@@ -64,6 +64,13 @@
   }
 </script>
 <style>
+    #menu{
+      background: linear-gradient(90deg,#1d976c 10%,#93f9b9 90%);
+      h4{
+        font-size:1.2em;
+        color: white;
+      }
+    }
 	 #add{
       text-align: center;
       margin-top: 1em;
