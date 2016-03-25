@@ -25,6 +25,12 @@ function urlParser(url) {
             	obj.target='jd';
                 obj.itemId = url;
             } else if (util.contains(url, 'apple.com')) {
+                if(!util.contains(url, '/id')){
+                    return reject({
+                        status:402,
+                        message:'请填写完整正确的App地址'
+                    });
+                }
             	obj.target='apple';
                 obj.itemId = url;
             }

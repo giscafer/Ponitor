@@ -29,7 +29,6 @@ export default {
   }, 
     route: {
       data(transition){
-        console.log(transition.to.query.type);
         const type=transition.to.query.type;
         request
           .get('/api/good/'+type)
@@ -39,9 +38,9 @@ export default {
               notie.alert(3, err.message, 1.5)
             } else {
               this.goods = res.body
-              console.log(this.goods)
             }
-          })      }
+          })
+      }
     },
   ready () {
     this.handle = setInterval(() => {

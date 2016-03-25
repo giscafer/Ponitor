@@ -31,8 +31,8 @@ gulp.task('start', function() {
         script: 'app.js',
         ext: 'js html',
         env: { 'NODE_ENV': 'development' }
-    })
-})
+    });
+});
 
 /** 
  *  执行webpack打包
@@ -70,6 +70,5 @@ gulp.task('watch', function() {
     // gulp.watch(paths.images, ['images']);
 });
 gulp.task('default', ['webpack', 'watch'], function() {
-    console.log(process.env.NODE_ENV);
     gulp.start('start');
 });

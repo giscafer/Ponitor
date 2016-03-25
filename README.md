@@ -4,7 +4,7 @@
 
 可添加天猫、淘宝、京东、Apple App的商品，监控商品价格发生变动时，推送消息！
 
-	vue+webpack+node.js+mongodb
+技术栈：vue.js + ES6 + node.js + mongodb（持久化）+ redis（缓存）
 
 # Usage
 
@@ -24,3 +24,7 @@ or
 # Screenshot
 
 ![index](https://raw.githubusercontent.com/giscafer/Ponitor/master/src/assets/intro_index.png)
+
+# License
+
+MIT

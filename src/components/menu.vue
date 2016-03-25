@@ -47,7 +47,7 @@
               if(err){
                 notie.alert(3,err.message,2);
               }else if(msg){
-                notie.alert(4,msg,2);
+                notie.alert(3,msg,2);
               }else{
                 notie.alert(1,'添加成功',1.5);
                 this.goodUrl='';

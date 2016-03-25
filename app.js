@@ -75,9 +75,9 @@ app.use('/api',apiRouter);
 //start detect
 require('./src/schedule/detect.js');
 
-app.listen(18080, function() {
-    console.log("Ponitor listening on port %d", 18080);
-    console.log("You can debug your app with http://" + '127.0.0.1' + ':' +18080);
+app.listen(config.port, function() {
+    console.log("Ponitor listening on port %d", config.port);
+    console.log("You can debug your app with http://" + config.localhost + ':' +config.port);
 });
 
 module.exports = app;
