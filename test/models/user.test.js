@@ -17,5 +17,9 @@ describe('./src/models/user.js',function(){
 			});
 			done();
 		});
+		it('has getUsersByQueryAsync func',function(done){
+			User.hasOwnProperty('getUsersByQueryAsync').should.be.true;
+			done();
+		});
 	});
 });
