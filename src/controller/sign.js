@@ -212,7 +212,7 @@ exports.login = function(req, res, next) {
                         });
                     }
                     //将session保存到cookie中
-                    // authMiddleWare.gen_session(user, res);
+                    authMiddleWare.gen_session(user, res,next);
                     var refer = req.session._loginReferer || '/';
                     for (var i = 0, len = notJump.length; i !== len; ++i) {
                         if (laoUtils.contains(refer, notJump[i])) {
@@ -221,6 +221,7 @@ exports.login = function(req, res, next) {
                         }
                     }
                     res.send({
+                        userInfo:user,
                         result_code: 0,
                         status: 200,
                         refer: refer,
@@ -237,13 +238,15 @@ exports.login = function(req, res, next) {
 
 };
 //登出
-exports.signout = function(req, res, next) {
-    // console.log('signout');
+exports.logout = function(req, res, next) {
     req.session.destroy();
     res.clearCookie(config.auth_cookie_name, {
         path: '/'
     });
-    res.redirect('/');
+    res.send({
+        result_code:0,
+        refer:'/'
+    });
 };
 /**
  * 通过邮箱链接激活账号

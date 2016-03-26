@@ -7,7 +7,7 @@ var mongokeeper = require('./src/models/mongokeeper');
 var webRouter=require('./src/routes/web_router');
 var apiRouter=require('./src/routes/api_router');
 var config=require('./src/config.global');
-
+var authMiddleware=require('./src/common/auth');
 var app=express();
 
 //view engine
@@ -24,7 +24,7 @@ app.use(express.static(path.join(__dirname,'public')));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
-app.use(cookieParser());
+app.use(cookieParser(config.auth_cookie_name));
 
 
 if (process.env.NODE_ENV=='development') { 
@@ -69,7 +69,7 @@ if (process.env.NODE_ENV=='development') {
         saveUninitialized: true
     }));
 }
-
+app.use(authMiddleware.authUser);
 app.use('/',webRouter);
 app.use('/api',apiRouter);
 //start detect

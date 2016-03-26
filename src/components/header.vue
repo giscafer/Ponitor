@@ -6,39 +6,26 @@
             <ul class="nav navbar-nav">
                 <li><a href="../" id="logo">Ponitor</a></li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
+            <!-- <ul class="nav navbar-nav navbar-right">
                 <li><a href="javascript:void(0)"  @click="login">登录</a></li>
                 <li><a href="javascript:void(0)"   @click="signup" >注册</a></li>
-            </ul>
+            </ul> -->
+            <user-info></user-info>
         </div >
     </div>
 </header>
 <nv-menu></nv-menu>
-<nv-login :show-login-modal.sync="showLoginModal"></nv-login>
-<nv-signup :show-signup-modal.sync="showSignupModal"></nv-login>
+
 </template>
 <script>
-import notie from 'notie';
   export default{
-    replace:true,
     data(){
       return {
-        showLoginModal:false,
-        showSignupModal:false
-      }
-    },
-    methods:{
-      login(){
-        this.$data.showLoginModal=true;
-      },
-      signup(){
-         this.$data.showSignupModal=true;
-         // notie.alert(1,'一封邮件发送到giscafer@outlook.com，请打开链接并激活！',10000);
+        
       }
     },
     components: {
-      'nvLogin':require('./login.vue'),
-      'nvSignup':require('./signup.vue'),
+      'userInfo':require('./user-info.vue'),
       "nvMenu":require('./menu.vue')
     }
   }

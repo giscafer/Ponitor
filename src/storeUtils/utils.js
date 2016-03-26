@@ -13,7 +13,7 @@ function urlParser(url) {
         if (!url) {
             reject({
                 status: 404,
-                message: 'URL找不到！'
+                message: '请输入商品URL！'
             });
         } else {
             const params = URL.parse(url,true).query;
@@ -33,6 +33,11 @@ function urlParser(url) {
                 }
             	obj.target='apple';
                 obj.itemId = url;
+            }else{
+                 return reject({
+                        status:402,
+                        message:'请填写正确的商品地址'
+                    });
             }
             resolve(obj);
         }

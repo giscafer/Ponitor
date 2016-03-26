@@ -42,5 +42,6 @@ module.exports={
             user: 'gisbbs@126.com',
             pass: '111111111'
         }
-    }
+    },
+    admins:{}
 };

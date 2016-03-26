@@ -28,7 +28,7 @@
 	  <div slot="modal-footer" class="modal-footer">
 	  	<span style="float:left">（提示：降价通知将发送给注册邮箱）</span>
 	    <button type="button" class="btn btn-default" @click='showSignupModal = false'>关闭</button>
-	    <button type="submit" class="btn btn-success" @click='signup'>确定</button>
+	    <button type="submit" class="btn btn-success" @click='signup'>注册</button>
 	  </div>
 	</modal>
 </template>
