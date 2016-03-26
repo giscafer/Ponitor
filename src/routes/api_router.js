@@ -14,5 +14,6 @@ router.post('/good', goodController.save);
  * signup
  */
 router.post('/signup',signController.signup);
+router.post('/login',signController.login);
 
 module.exports = router;

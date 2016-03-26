@@ -38,10 +38,10 @@ exports.bcompare = function(str, hash, callback) {
     return new Promise((resolve,reject)=>{
         bcrypt.compare(str, hash, (err,result)=>{
             if(err){
-                reject({
+               return reject({
                     result_code:-1,
                     status:500,
-                    error:err
+                    error:err.message
                 });
             }
             resolve(result);

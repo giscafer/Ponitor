@@ -21,5 +21,9 @@ describe('./src/models/user.js',function(){
 			User.hasOwnProperty('getUsersByQueryAsync').should.be.true;
 			done();
 		});
+		it('has getUserByLoginNameAsync func',function(done){
+			User.hasOwnProperty('getUserByLoginNameAsync').should.be.true;
+			done();
+		});
 	});
 });

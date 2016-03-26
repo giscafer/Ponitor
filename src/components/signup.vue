@@ -52,8 +52,8 @@
 				request.post('api/signup')
 				.send(this.$data)
 				.end((err,res)=>{
-					console.log(err);
-					console.log(res);
+					// console.log(err);
+					// console.log(res);
 					if(res.body.result_code!==0){
 						notie.alert(3,res.body.error,2);
 						return;

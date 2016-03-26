@@ -7,8 +7,8 @@
                 <li><a href="../" id="logo">Ponitor</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"  @click="login">登录</a></li>
-                <li><a href="#"   @click="signup" >注册</a></li>
+                <li><a href="javascript:void(0)"  @click="login">登录</a></li>
+                <li><a href="javascript:void(0)"   @click="signup" >注册</a></li>
             </ul>
         </div >
     </div>
@@ -18,7 +18,7 @@
 <nv-signup :show-signup-modal.sync="showSignupModal"></nv-login>
 </template>
 <script>
-import notie from 'notie'
+import notie from 'notie';
   export default{
     replace:true,
     data(){

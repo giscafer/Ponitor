@@ -65,7 +65,10 @@ exports.signup = function(req, res, next) {
     let email = validator.trim(req.body.email).toLowerCase();
     let pass = validator.trim(req.body.pass);
     let rePass = validator.trim(req.body.re_pass);
-    let active = false; //默认用户未激活
+    let active=false;
+    if (!config.need_active_mail){//如果不需要验证邮箱，默认激活
+        active=true;
+    }
 
     let errHandler = function(msg) {
         res.status(422).send({
@@ -114,10 +117,10 @@ exports.signup = function(req, res, next) {
             tools.bhash(pass)
                 .then(passhash => {
                     UserModel.create({
-                        loginname,
-                        passhash,
-                        email,
-                        active
+                        loginname:loginname,
+                        pass:passhash,
+                        email:email,
+                        active:active
                     }).then(user => {
                         //发送激活邮件
                         if (!config.need_active_mail) {
@@ -173,21 +176,21 @@ exports.login = function(req, res, next) {
         });
     }
 
-    let getUser;
     if (laoUtils.contains(loginname, '@')) {
-        getUser = UserModel.getUserByMailAsync;
+        //避免static里边的this发生转变
+        UserModel.getUser = UserModel.getUserByMailAsync;
     } else {
-        getUser = UserModel.getUserByLoginNameAsync;
+        UserModel.getUser = UserModel.getUserByLoginNameAsync;
     }
-    let errHandler = function(msg) {
-        res.status(403).render({
+    let errHandler = function() {
+        res.status(403).send({
             result_code: -1,
             status: 403,
-            error: msg || '用户名或密码错误'
+            error: '用户名或密码错误'
         });
     };
     //用户名是否存在——>存在则验证密码，不存在则返回错误信息
-    getUser(loginname)
+    UserModel.getUser(loginname)
         .then(user => {
             if (!user) {
                 return errHandler();
@@ -200,15 +203,16 @@ exports.login = function(req, res, next) {
                         return errHandler();
                     }
                     //用户未激活的话（如果用户使用的是手机注册的模式，该过程不需要）
-                    if (!user.active) {
+                    if (!user.active && config.need_active_mail) {
                         mail.sendActiveMail(user.email, utility.md5(user.email + passhash + config.session_secret), user.loginname);
-                        res.status(403);
-                        return res.render('sign/signin', {
+                        return res.status(403).send({
+                            result_code: -1,
+                            status: 403,
                             error: '此账号还没有被激活，激活链接已发送到 ' + user.email + ' 邮箱，请查收。'
                         });
                     }
                     //将session保存到cookie中
-                    authMiddleWare.gen_session(user, res);
+                    // authMiddleWare.gen_session(user, res);
                     var refer = req.session._loginReferer || '/';
                     for (var i = 0, len = notJump.length; i !== len; ++i) {
                         if (laoUtils.contains(refer, notJump[i])) {
@@ -216,7 +220,12 @@ exports.login = function(req, res, next) {
                             break;
                         }
                     }
-                    res.redirect(refer);
+                    res.send({
+                        result_code: 0,
+                        status: 200,
+                        refer: refer,
+                        success: '登录成功！'
+                    });
                 })
                 .catch(err => {
                     return res.send(err);

@@ -9,11 +9,11 @@
 	          <div>
 	              <div class="form-group">
 	                  <label for="loginname">用户名</label>
-	                  <input class='form-control' id='loginname' name='loginname' size='30' type='text' value='' />
+	                  <input class='form-control' id='loginname' name='loginname' v-model="loginname"  size='30' type='text' value='' />
 	              </div>
 	              <div class="form-gourp">
 	                  <label for="pass">密码</label>
-	                  <input class='form-control' id='pass' name='pass' size='30' type='password' />
+	                  <input class='form-control' id='pass' name='pass' v-model="pass" size='30' type='password' />
 	              </div>
 	          </div>
 	      </form>
@@ -22,17 +22,39 @@
 	  <div slot="modal-footer" class="modal-footer">
 	    <a id="forgot_password" href="#" @click='showLoginModal = false'>忘记密码了？</a>
 	    <button type="button" class="btn btn-default" @click='showLoginModal = false'>关闭</button>
-	    <button type="submit" class="btn btn-success" @click='showLoginModal = false'>登录</button>
+	    <button type="submit" class="btn btn-success" @click='login'>登录</button>
 	  </div>
 	</modal>
 </template>
 
 <script>
 	import { modal } from 'vue-strap';
+	import request from 'superagent';
+	import notie from 'notie';
 	export default{
 		props: ['showLoginModal'],
 		data(){
 			return{
+				loginname:'',
+				pass:'',
+			};
+		},
+		methods:{
+			login(){
+				request.post('api/login')
+				.send(this.$data)
+				.end((err,res)=>{
+					console.log(err);
+					console.log(res);
+					if(res.body.result_code!==0){
+						notie.alert(3,res.body.error,2);
+						return;
+					}else{
+						this.$router.go({ name: 'all', params: { type: 'all' }});
+						this.$data.showLoginModal=false;
+					}
+					
+				});
 			}
 		},
 		components:{
