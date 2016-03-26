@@ -32,7 +32,7 @@ module.exports={
     redis_host: 'redis.duapp.com',
     redis_port: 80,
     redis_db: 'ywBsVflljSOlNw********',
-    need_active_mail:true,
+    need_active_mail:false,
     // 邮箱配置 need_active_mail为true时，必须设置
     mail_opts: {
         debug:true,

@@ -1,20 +1,18 @@
-const validator = require('validator');
-// var EventProxy = require('eventproxy'); 
+'use strict'
+
 const UserModel = require('../models/user');
 const mail = require('../common/mail');
 const tools = require('../common/tools');
 const authMiddleWare = require('../common/auth');
-const utility = require('utility');
 const config = require('../config.global');
+const validator = require('validator');
+const utility = require('utility');
 const uuid = require('node-uuid');
 const laoUtils = require('lao-utils');
 
 
 /**
  * 验证昵称是否存在 api接口（ajax请求）
- * @author giscafer
- * @version 1.0
- * @date    2016-01-05T20:23:49+0800
  */
 exports.validateName_api_v1 = function(req, res, next) {
     let name = validator.trim(req.params.name);
@@ -41,7 +39,7 @@ exports.validateName_api_v1 = function(req, res, next) {
 exports.validateName = function(req, res, next) {
     let loginname = validator.trim(req.body.loginname);
     UserModel
-        .getUserByLoginNameAysnc(loginname)
+        .getUserByLoginNameAsync(loginname)
         .then(user => {
             if (user) {
                 return res.send({
@@ -62,7 +60,7 @@ exports.validateName = function(req, res, next) {
  * @param  {Function} next
  */
 exports.signup = function(req, res, next) {
-    let name = validator.trim(req.body.name);
+    let name = validator.trim(req.body.loginname).toLowerCase();
     let loginname = validator.trim(req.body.loginname).toLowerCase();
     let email = validator.trim(req.body.email).toLowerCase();
     let pass = validator.trim(req.body.pass);
@@ -70,8 +68,8 @@ exports.signup = function(req, res, next) {
     let active = false; //默认用户未激活
 
     let errHandler = function(msg) {
-        res.send('sign/signup', {
-            status: 422,
+        res.status(422).send({
+            result_code: -1,
             error: msg,
             name: name,
             loginname: loginname,
@@ -107,46 +105,47 @@ exports.signup = function(req, res, next) {
     };
     let opt = {};
 
-    UserModel.getUsersByQueryAysnc(query, opt)
+    UserModel.getUsersByQueryAsync(query, opt)
         .then(users => {
             if (users.length > 0) {
                 return errHandler('用户名或邮箱已被使用');
             }
+            //加密密码后保存
+            tools.bhash(pass)
+                .then(passhash => {
+                    UserModel.create({
+                        loginname,
+                        passhash,
+                        email,
+                        active
+                    }).then(user => {
+                        //发送激活邮件
+                        if (!config.need_active_mail) {
+                            res.send({
+                                result_code: 0,
+                                success: '注册成功，欢迎加入' + config.name + '！',
+                                referer: '/signin'
+                            });
+                        } else {
+                            mail.sendActiveMail(email, utility.md5(email + passhash + config.session_secret), loginname);
+                            res.send({
+                                result_code: 0,
+                                message: '欢迎加入' + config.name + '！我们已给您的注册邮箱发送了一封邮件，请点击里面的链接来激活您的帐号。',
+                                referer: '/signin'
+                            });
+                        }
+                    }).catch(err => {
+                        return next(err);
+                    });
+                })
+                .catch(err => {
+                    return next(err);
+                });
         })
         .catch(err => {
             return next(err);
         });
-    //加密密码后保存
-    tools.bhash(pass)
-        .then(passhash => {
-            UserModel.create({
-                loginname,
-                passhash,
-                email,
-                active
-            }).then(user => {
-                //发送激活邮件
-                mail.sendActiveMail(email, utility.md5(email + passhash + config.session_secret), loginname);
-                if (!config.need_active_mail) {
-                    res.send({
-                        result_code: 0,
-                        success: '注册成功，欢迎加入' + config.name + '！',
-                        referer: '/signin'
-                    });
-                } else {
-                    res.send({
-                        result_code: 0,
-                        message: '欢迎加入' + config.name + '！我们已给您的注册邮箱发送了一封邮件，请点击里面的链接来激活您的帐号。',
-                        referer: '/signin'
-                    });
-                }
-            }).catch(err => {
-                return next(err);
-            });
-        })
-        .catch(err => {
-            return next(err);
-        });
+    
 };
 
 var notJump = [
@@ -176,13 +175,12 @@ exports.login = function(req, res, next) {
 
     let getUser;
     if (laoUtils.contains(loginname, '@')) {
-        getUser = UserModel.getUserByMailAysnc;
+        getUser = UserModel.getUserByMailAsync;
     } else {
-        getUser = UserModel.getUserByLoginNameAysnc;
+        getUser = UserModel.getUserByLoginNameAsync;
     }
     let errHandler = function(msg) {
-        res.status(403);
-        res.render({
+        res.status(403).render({
             result_code: -1,
             status: 403,
             error: msg || '用户名或密码错误'
@@ -247,7 +245,7 @@ exports.signout = function(req, res, next) {
 exports.activeAccount = function(req, res, next) {
     let key = validator.trim(req.query.key);
     let name = validator.trim(req.query.name);
-    UserModel.getUserByLoginNameAysnc(name)
+    UserModel.getUserByLoginNameAsync(name)
     .then(user=>{
         if (!user) {
             return next(new Error('[ACTIVE_ACCOUNT] no such user:' + name));

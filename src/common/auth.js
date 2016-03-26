@@ -4,9 +4,9 @@
  */
 var mongoose = require('mongoose');
 var config = require('../config.global');
-var eventproxy = require('eventproxy');
+// var eventproxy = require('eventproxy');
 var UserModel = require('../models/user');
-var UserProxy = require('../proxy/user');
+// var UserProxy = require('../proxy/user');
 
 /**
  * 需要管理员权限
@@ -69,7 +69,7 @@ function gen_session(user, res) {
 exports.gen_session = gen_session;
 
 // 验证用户是否登录
-exports.authUser = function(req, res, next) {
+/*exports.authUser = function(req, res, next) {
     var ep = new eventproxy();
     ep.fail(next);
 
@@ -111,3 +111,4 @@ exports.authUser = function(req, res, next) {
         UserProxy.getUserById(user_id, ep.done('get_user'));
     }
 };
+*/
