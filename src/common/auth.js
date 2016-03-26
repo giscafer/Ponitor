@@ -61,11 +61,11 @@ function gen_session(user, res, next) {
  */
 function authUser(req, res, next) {
     if (req.session.user) {
-        resolve(req.session.user);
+        setUser(req.session.user);
     } else {
         //cookie中取出登录信息
         let auth_token = req.signedCookies[config.auth_cookie_name];
-         console.log(auth_token)
+        console.log(auth_token)
         if (!auth_token) {
             return next();
         }
@@ -73,7 +73,8 @@ function authUser(req, res, next) {
         let user_id = auth[0];
         UserModel.getUserByIdAsync(user_id)
         .then(user=>{
-            resolve(user);
+            setUser(user);
+            return null;
         })
         .catch(err=>{
             return next(err);
@@ -89,7 +90,7 @@ function authUser(req, res, next) {
         return next();
     }
 
-   function resolve(user) {
+   function setUser(user) {
         if (!user) {
             return next();
         }

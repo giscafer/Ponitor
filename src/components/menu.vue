@@ -45,10 +45,10 @@
               nprogress.done();
               this.adding=false;
               if(err){
-                notie.alert(3,err.message,2);
+                notie.alert(2,err.message,2);
                 return;
               }else if(msg){
-                notie.alert(3,msg,2);
+                notie.alert(2,msg,2);
                 return;
               }else{
                 notie.alert(1,'添加成功',1.5);

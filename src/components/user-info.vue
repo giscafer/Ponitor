@@ -40,10 +40,10 @@ export default{
       	request.get('api/logout')
       	.end((err,res)=>{
       		 if(err){
-                notie.alert(3,err.message,2);
+                notie.alert(2,err.message,2);
                 return;
              }else if(res.body.result_code===-1){
-             	notie.alert(3,res.body.error,2);
+             	notie.alert(2,res.body.error,2);
                 return;
              }
              localStorage.clear();

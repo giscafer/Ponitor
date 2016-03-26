@@ -44,7 +44,7 @@ UserSchema.statics = {
         return this.find(query, '', opt).sort('update_at').exec(cb);
     },
     getUserById: function(id, cb) {
-        return this.findOne({ _id: id }).exec(cb);
+        return this.findOne({ _id: id },cb);
     },
     getUserByLoginName: function(loginName, cb) {
         return this.findOne({ 'loginname': loginName }).exec(cb);
