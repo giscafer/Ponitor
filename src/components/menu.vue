@@ -33,7 +33,7 @@
 						notie.alert(3,'查询商品出错',2);
 						return;
 					}
-					_self.$router.go({name:''});
+					_self.$router.go({name:'goodlist'});
 				});
 			}
 		},

@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
-// mongoose.Promise = global.Promise;
+ 
 const GoodSchema = new Schema({
     userId: { type: ObjectId }, //用户ID
     goodId: { type: String }, //商品ID

@@ -8,11 +8,10 @@
 <div class="container bs-docs-container">
      <div class="cate">
      <nav>
-        <!-- 使用指令 v-link 进行导航 -->
-            <a href="#" v-link="{ name: 'all', query: { type: 'all' }}">所有</a>
-            <a href="#" v-link="{ name: 'jd', query: { type: 'jd' }}">京东</a>
-            <a href="#" v-link="{ name: 'alibaba', query: { type: 'alibaba' }}">天猫|淘宝</a>
-            <a href="#" v-link="{ name: 'apple', query: { type: 'apple' }}">Apple App</a>
+        <a href="#" v-link="{ name: 'all', query: { type: 'all' }}">所有</a>
+        <a href="#" v-link="{ name: 'jd', query: { type: 'jd' }}">京东</a>
+        <a href="#" v-link="{ name: 'alibaba', query: { type: 'alibaba' }}">天猫|淘宝</a>
+        <a href="#" v-link="{ name: 'apple', query: { type: 'apple' }}">Apple App</a>
      </nav>
     </div>
 </div>
@@ -22,7 +21,6 @@
   import notie from 'notie'
   import nprogress from 'nprogress'
   export default {
-    replace:true,
     data(){
       return {
         goods:[],

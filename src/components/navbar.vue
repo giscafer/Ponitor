@@ -1,5 +1,5 @@
 <template>
-<header class="navbar navbar-static-top" id="top" role="banner">
+<header class="navbar navbar-static-top" id="navbar" role="banner">
     <div class="container">
         <div class="navbar-header"></div >
         <div  id="bs-navbar" class="collapse navbar-collapse">
@@ -28,8 +28,8 @@
 </script>
 
 <style>
-   #top{
-      margin-bottom:0px;
+  #navbar{
+    margin-bottom:0px;
   }
   #logo{
     color:#1d976c;

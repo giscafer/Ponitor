@@ -1,11 +1,13 @@
 <template>
 <nav-bar></nav-bar>
-<nv-content></nv-content>
+<div id="nv-content">
+  <nv-content v-ref:content></nv-content>
+</div>
 </template>
 <script>
   export default{
     components: {
-      'navBar':require('./navbar.vue'),
+      'navBar':require('../components/navbar.vue'),
       "nvContent":require('./content.vue')
     }
   }

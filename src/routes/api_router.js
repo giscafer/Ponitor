@@ -8,6 +8,7 @@ const signController = require('../controller/sign');
 
 /* good api. */
 router.get('/good/:type', goodController.list);
+router.get('/goodlist', authMiddleWare.userRequired,goodController.list);
 
 router.post('/good', authMiddleWare.userRequired,goodController.save);
 
