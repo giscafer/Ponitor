@@ -8,7 +8,7 @@ var gulp = require('gulp'),
     del = require('del');
 var nodemon = require('gulp-nodemon');
 var watch = require('gulp-watch');
-var config = require('./build/webpack.prod.config.js');
+var config = require('./build/webpack.dev.config.js');
 
 var paths = {
     scripts: ['src/**/*.vue', 'src/**/*.js', 'src/*.vue'],

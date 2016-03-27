@@ -6,7 +6,6 @@ const mongoose = require('mongoose');
 const UserModel = require('../models/user');
 const config = require('../config.global');
 
-
 /**
  * 需要登录
  */
@@ -41,7 +40,9 @@ function adminRequired(req, res, next) {
 
     next();
 }
-
+/**
+ * cookie签名保存
+ */
 function gen_session(user, res, next) {
     let auth_token = user._id + '$$$$';
     let opts = {
@@ -50,25 +51,24 @@ function gen_session(user, res, next) {
         signed: true, //如果true,express会使用req.secret来完成签名，需要cookie-parser配合使用
         httpOnly: true
     };
-    console.log(auth_token)
     res.cookie(config.auth_cookie_name, auth_token, opts);
     next();
-};
-
+}
 
 /**
  * 验证用户是否登录
  */
 function authUser(req, res, next) {
+    //已经登录
     if (req.session.user) {
         setUser(req.session.user);
     } else {
         //cookie中取出登录信息
         let auth_token = req.signedCookies[config.auth_cookie_name];
-        console.log(auth_token)
         if (!auth_token) {
             return next();
         }
+        //cookie存在登录信息
         let auth = auth_token.split('$$$$');
         let user_id = auth[0];
         UserModel.getUserByIdAsync(user_id)
@@ -81,29 +81,18 @@ function authUser(req, res, next) {
         });
     }
 
-    if (config.debug && req.cookies['mock_user']) {
-        let mockUser = JSON.parse(req.cookies['mock_user']);
-        req.session.user = new UserModel(mockUser);
-        if (mockUser.is_admin) {
-            req.session.user.is_admin = true;
-        }
-        return next();
-    }
-
    function setUser(user) {
         if (!user) {
             return next();
         }
         user = req.session.user = new UserModel(user);
         if (config.admins.hasOwnProperty(user.loginname)) {
-            user.is_admin = true;
+            req.session.user.is_admin = true;//管理员
         }
         next();
     }
 
    
 }
-
-
 
 module.exports = { userRequired, adminRequired, gen_session, authUser };
