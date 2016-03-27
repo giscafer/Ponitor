@@ -5,7 +5,12 @@ const Crawler=require('../storeUtils');
 //list goods
 function list(req,res,next){
 	const type=req.params.type;
-	let query={};
+	if(!req.session.user){
+		return res.send([]);
+	}
+	let query={
+		userId:req.session.user._id
+	};
 	if(type!=='all' && type!=="undefined"){
 		query.type=type;
 	}
@@ -18,8 +23,10 @@ function list(req,res,next){
 // saving goods
 function save(req,res,next){
 	const goodUrl = req.body.url;
+	let user=req.session.user;
 	Crawler.crawInfo(goodUrl)
 	    .then(info => { 
+	    	info.userId=user._id;
 	        goodModel.add(info) .then(good =>{
 	         res.send(good);
 	        }).catch(err =>{

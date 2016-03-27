@@ -26,6 +26,10 @@ router.map({
   '/jd': {
     name: 'jd',
     component: require('./views/list.vue')
+  },
+  '/goodlist': {
+    name: 'goodlist',
+    component: require('./views/list.vue')
   }
 })
 

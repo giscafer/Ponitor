@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
 // mongoose.Promise = global.Promise;
 const GoodSchema = new Schema({
+    userId: { type: ObjectId }, //用户ID
     goodId: { type: String }, //商品ID
     name: { type: String },
     oldPrice: { type: Number, default: 0 }, //原价格
@@ -37,6 +38,7 @@ function add(info) {
                 });
             } else {
                 GoodModel.create({
+                        userId: info.userId,
                         goodId: info.goodId,
                         name: info.name,
                         oldPrice: info.price,

@@ -56,7 +56,7 @@
 						localStorage.profile_image_url=res.body.userInfo.profile_image_url;
 						localStorage.accessToken=res.body.userInfo.accessToken;
 						this.$data.showLoginModal=false;
-						// this.$router.go({ name: 'all', params: { type: 'all' }});
+						this.$router.go({ name: 'all', params: { type: 'all' }});
 						location.reload();
 					}
 					
