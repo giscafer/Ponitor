@@ -6,27 +6,25 @@
             <ul class="nav navbar-nav">
                 <li><a href="../" id="logo">Ponitor</a></li>
             </ul>
-            <!-- <ul class="nav navbar-nav navbar-right">
-                <li><a href="javascript:void(0)"  @click="login">登录</a></li>
-                <li><a href="javascript:void(0)"   @click="signup" >注册</a></li>
-            </ul> -->
-            <user-info></user-info>
+            
+            <div id="user-info">
+              <user-info></user-info>
+            </div>
+            <ul id="nv-menu" class="nav navbar-nav navbar-right">
+              <nv-menu></nv-menu>
+            </ul>
         </div >
     </div>
 </header>
-<nv-menu></nv-menu>
+<nv-content></nv-content>
 
 </template>
 <script>
   export default{
-    data(){
-      return {
-        
-      }
-    },
     components: {
+      'nvMenu':require('./menu.vue'),
       'userInfo':require('./user-info.vue'),
-      "nvMenu":require('./menu.vue')
+      "nvContent":require('./content.vue')
     }
   }
 </script>
@@ -49,6 +47,10 @@
   }
   #forgot_password{
     float: left;
+  }
+  #nv-menu{
+    margin-right: 50px;
+    margin-top: 9px;
   }
    
 </style>

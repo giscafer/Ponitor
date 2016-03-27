@@ -5,7 +5,7 @@
       <div class="pure-u-1-6" v-for="good in goods">
         <div class="good">
           <div class="icon">
-            <img src="{{good.image}}" alt="" class="pure-img">
+            <img v-bind:src="good.image" alt="" class="pure-img">
           <div class="name">{{ good.name }}>>>><a href="{{good.url}}" target="_blank">详情</a></div> 
           <div class="price">{{ good.priceText }}</div> 
           </div>

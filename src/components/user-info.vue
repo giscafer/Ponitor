@@ -22,7 +22,7 @@ export default{
 	data(){
 		return{
 			showLoginModal:false,
-    		showSignupModal:false,
+    	showSignupModal:false,
 			loginname:localStorage.loginname || "",
 			avatar_url:localStorage.profile_image_url || ""
 		};
