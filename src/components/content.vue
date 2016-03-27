@@ -2,7 +2,15 @@
 <div id="menu" class="jumbotron">
   <div class="container" id="add">
       <h4>关注价格，在最适合的时候购买</h4>
-      <input class="control-input" v-model="goodUrl" @keyup.enter="add" type="text" placeholder="输入商品URL"><a href="javascript:void(0)" @click="add">添加</a>
+      <div class="input-group  col-sm-10">
+        <input class="form-control" style="float:right" v-model="goodUrl" @keyup.enter="add" type="text" placeholder="输入商品URL">
+        <span class="input-group-btn">
+          <button class="btn btn-default" @click="add">添加</button>
+        </span>
+    </div>
+   <!--  <div class="input-group col-sm-8">
+     <span class="input-group-addon" id="sizing-addon2">@</span>
+   </div> -->
   </div>
 </div>
 <div class="container bs-docs-container">
@@ -75,30 +83,29 @@
       text-align: center;
       margin-top: 1em;
       input {
-        width: 30em;
+        width: 45em;
         border: 1px solid #d5d5d5;
         border-right: none;
         border-radius: 2em 0 0 2em;
         padding-left: 1em;
         padding-right: 1em;
         padding-top: .2em;
-        padding-bottom: .1em;
+        padding-bottom: .3em;
         outline: none;
       }
-      
-      a{
-        color: #000;
-        background-image: linear-gradient(#fcfcfc, #eee);
+      button{
         border: 1px solid #d5d5d5;
-        padding: .2em;
         padding-left: 1em;
         text-decoration: none;
         border-radius: 0 2em 2em 0;
         padding-right: 1em;
       }
+      h4{
+        margin-left: 5px;
+      }
     }
      .v-link-active {
-        border-bottom-color: #000;
+        border-bottom:2px solid #44B785;
     }
     .cate {
         /*margin-top: 2em;*/
@@ -110,9 +117,8 @@
                 padding-bottom: .4em;
                 color: #000;
                 text-decoration: none;
-                border-bottom: 2px solid #fff;
                 &:hover {
-                    border-bottom-color: #000;
+                    border-bottom: 2px solid #000;
                 }
             }
         }
