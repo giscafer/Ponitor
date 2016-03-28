@@ -50,8 +50,9 @@ function fetchGoodInfo(itemId) {
                 const resInfo = resultJson.itemList[0];
                 if(!resInfo){
                     reject({
-                        status:501,
-                        message:'获取商品信息失败！'
+                        result_code:-1,
+                        status:404,
+                        error:'获取商品信息失败！'
                     });
                        return;
                 }
@@ -67,10 +68,10 @@ function fetchGoodInfo(itemId) {
                     info.marketPrice = resInfo.price;
                     info.priceText='￥'+resInfo.price;
                 }catch(e){
-                    console.log(e)
                     reject({
+                        result_code:-1,
                         status:501,
-                        message:e
+                        error:e
                     });
                    return;
                 }

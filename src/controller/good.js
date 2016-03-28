@@ -11,7 +11,7 @@ function list(req,res,next){
 	let query={
 		userId:req.session.user._id
 	};
-	if(type!=='all' && type!=="undefined"){
+	if(type!=='all' && type!=="undefined" && type!==undefined){
 		query.type=type;
 	}
 	 goodModel.list(query, {})
@@ -27,7 +27,7 @@ function save(req,res,next){
 	Crawler.crawInfo(goodUrl)
 	    .then(info => { 
 	    	info.userId=user._id;
-	        goodModel.add(info) .then(good =>{
+	        goodModel.add(info).then(good =>{
 	         res.send(good);
 	        }).catch(err =>{
 	         res.send(err);

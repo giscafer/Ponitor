@@ -47,25 +47,30 @@
               url:this.goodUrl
             })
             .end((err,res)=>{
-              const msg=res.body.message;
               nprogress.done();
               this.adding=false;
               if(err){
                 notie.alert(2,err.message,2);
                 return;
-              }else if(msg){
-                notie.alert(2,msg,2);
+              }else if(res.body.error){
+                notie.alert(2,res.body.error,2);
+                this.clearStore(res.body.reject);
                 return;
               }else{
                 notie.alert(1,'添加成功',1.5);
                 this.goodUrl='';
                 this.goods.push(res.body);
                 console.log(this.$router);
-                //并不管用
                 this.$router.go({ name: 'all', params: { type: 'all' }});
               }
             })
 
+        }
+      },
+      clearStore:function(type){
+        if(type==='unlogin'){
+          localStorage.loginname="";
+          localStorage.userId="";
         }
       }
     }

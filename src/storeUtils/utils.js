@@ -13,7 +13,7 @@ function urlParser(url) {
         if (!url) {
             reject({
                 status: 404,
-                message: '请输入商品URL！'
+                error: '请输入商品URL！'
             });
         } else {
             const params = URL.parse(url,true).query;
@@ -28,7 +28,7 @@ function urlParser(url) {
                 if(!util.contains(url, '/id')){
                     return reject({
                         status:402,
-                        message:'请填写完整正确的App地址'
+                        error:'请填写完整正确的App地址'
                     });
                 }
             	obj.target='apple';
@@ -36,7 +36,7 @@ function urlParser(url) {
             }else{
                  return reject({
                         status:402,
-                        message:'请填写正确的商品地址'
+                        error:'请填写正确的商品地址'
                     });
             }
             resolve(obj);

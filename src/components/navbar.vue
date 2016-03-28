@@ -8,7 +8,7 @@
             </ul>
             
             <div id="user-info">
-              <user-info></user-info>
+              <user-info v-ref:userinfo></user-info>
             </div>
             <ul id="nv-menu" class="nav navbar-nav navbar-right">
               <nv-menu></nv-menu>

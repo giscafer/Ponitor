@@ -1,6 +1,6 @@
   <template>
     <div id="allcontainer">
-     <p class="loading" v-show="goods.length === 0">该分类没有内容</p>
+     <p class="loading" v-show="goods.length === 0">该分类没有商品</p>
      <div class="pure-g" v-else>
       <div class="pure-u-1-6" v-for="good in goods">
         <div class="good">

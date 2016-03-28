@@ -23,8 +23,7 @@ export default{
 		return{
 			showLoginModal:false,
     	showSignupModal:false,
-			loginname:localStorage.loginname || "",
-			avatar_url:localStorage.profile_image_url || ""
+			loginname: localStorage.loginname || ''
 		};
 	},
     methods:{

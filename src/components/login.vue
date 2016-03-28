@@ -50,11 +50,8 @@
 						notie.alert(2,res.body.error,2);
 						return;
 					}else{
-						localStorage.userId=res.body.userInfo._id;
 						localStorage.loginname=res.body.userInfo.loginname;
-						localStorage.email=res.body.userInfo.email;
-						localStorage.profile_image_url=res.body.userInfo.profile_image_url;
-						localStorage.accessToken=res.body.userInfo.accessToken;
+						localStorage.userId=res.body.userInfo._id;
 						this.$data.showLoginModal=false;
 						this.$router.go({ name: 'all', params: { type: 'all' }});
 						location.reload();

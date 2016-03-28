@@ -21,7 +21,7 @@ const GoodSchema = new Schema({
 });
 
 //创建索引
-GoodSchema.index({ goodId: 1 }, { unique: true });
+GoodSchema.index({ goodId: 1 });
 GoodSchema.index({ type: 1 });
 
 const GoodModel = mongoose.model('Good', GoodSchema);
@@ -30,11 +30,12 @@ const GoodModel = mongoose.model('Good', GoodSchema);
  */
 function add(info) {
     return new Promise((resolve, reject) => {
-        GoodModel.findOne({ goodId: info.goodId, type: info.type }).exec().then((good) => {
+        GoodModel.findOne({userId:info.userId,goodId: info.goodId, type: info.type }).exec().then((good) => {
             if (good) {
                 reject({
+                    result_code:-1,
                     status: 402,
-                    message: '该商品已经存在！'
+                    error: '该商品已经存在！'
                 });
             } else {
                 GoodModel.create({
@@ -52,7 +53,9 @@ function add(info) {
                     .then(good => {
                         resolve(good);
                      })
-                    .catch(err => { reject(err) });
+                    .catch(err => {
+                        reject(err)
+                    });
             }
         }).catch(err => reject(err));
     });
