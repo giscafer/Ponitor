@@ -20,13 +20,13 @@ const GoodSchema = new Schema({
     update_at: { type: Date, default: Date.now }
 });
 
-//创建索引
+//index
 GoodSchema.index({ goodId: 1 });
 GoodSchema.index({ type: 1 });
 
 const GoodModel = mongoose.model('Good', GoodSchema);
 /**
- * 新增
+ * add
  */
 function add(info) {
     return new Promise((resolve, reject) => {
@@ -75,7 +75,7 @@ function update(id, info){
   });
 }
 /**
- * 查询列表
+ * query
  */
 function list(query, opt) {
     return new Promise((resolve, reject) => {
@@ -84,5 +84,29 @@ function list(query, opt) {
         }).catch(err => { reject(err) });
     });
 }
+function getGoodById(goodId,opt){
+    return new Promise((resolve,reject)=>{
+        GoodModel.findOne({_id:goodId})
+        .then(good=>{
+            resolve(good);
+        })
+        .catch(err=>{
+            reject(err);
+        });
+    });
+    
+}
+/**
+ * del
+ */
+function del(goodId){
+    return new Promise((resolve,reject)=>{
+        GoodModel.remove({_id:goodId}).then(good=>{
+            resolve(good);
+        }).catch(err=>{
+            reject(err);
+        });
+    });
+}
 
-module.exports = { add,update,list };
+module.exports = { add,update,list,getGoodById,del};
