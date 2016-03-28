@@ -42,7 +42,7 @@ function fetchAppInfo(url){
                             break;
                         case 'price':
                             info[key+'Text']=text;
-                            info[key]=text.substring(1)-0;
+                            info[key]=text.substring(1).replace(/,/g,'')-0;
                             break;
                         default:
                             info[key]=text;

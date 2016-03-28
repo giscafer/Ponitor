@@ -31,7 +31,7 @@ export default {
       data(transition){
         const type=transition.to.query.type;
         request
-          .get('/api/good/'+type)
+          .post('/api/good/'+type)
           .end((err, res) => {
             nprogress.done()
             if (err) {

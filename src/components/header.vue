@@ -13,7 +13,6 @@
   }
 </script>
 <style>
-@import "../../node_modules/normalize.css/normalize.css";
 @import "purecss";
 @import "../../node_modules/nprogress/nprogress.css";
    body {

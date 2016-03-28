@@ -57,11 +57,12 @@
                 this.clearStore(res.body.reject);
                 return;
               }else{
-                notie.alert(1,'添加成功',1.5);
+                notie.alert(1,'添加成功',1);
                 this.goodUrl='';
                 this.goods.push(res.body);
-                console.log(this.$router);
-                this.$router.go({ name: 'all', params: { type: 'all' }});
+                let type=res.body.type;
+                console.log(res.body.type)
+                this.$router.go({ name: 'all', params: { type: type }});
               }
             })
 

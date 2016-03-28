@@ -38,4 +38,37 @@ function save(req,res,next){
 	     });
 }
 
-module.exports = {list,save};
+function del(req,res,next){
+	let goodId=req.params.goodId;
+	let userId=req.session.user._id.toString();
+	goodModel.getGoodById(goodId)
+	.then(good=>{
+		if(!good){
+			return res.status(404).send({
+				result_code:-1,
+				error:'此商品不存在！'
+			});
+		}
+		if(good.userId.toString()!==userId){
+			return res.status(403).send({
+				result_code:-1,
+				error:'无法删除此商品！'
+			});
+		}
+		good.remove(function(good){
+			res.send({
+				result_code:0,
+				success:'删除成功！'
+			});
+		});
+	})
+	.catch(err=>{
+		res.send({
+			result_code:-1,
+			error:err && err.message
+		});
+		return next(err);
+	});
+}
+
+module.exports = {list,save,del};
