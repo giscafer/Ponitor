@@ -23,7 +23,11 @@ or
 
 # Screenshot
 
-![index](https://raw.githubusercontent.com/giscafer/Ponitor/master/src/assets/intro_index.png)
+![index](https://raw.githubusercontent.com/giscafer/Ponitor/master/wiki/index_preview.png)
+
+关注的商品价格发生变化（涨价or降价）的时候发生邮件通知，如测试截图：
+
+![index](https://raw.githubusercontent.com/giscafer/Ponitor/master/wiki/email-sample.png)
 
 # License
 
