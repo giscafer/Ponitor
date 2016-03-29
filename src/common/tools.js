@@ -1,57 +1,65 @@
-var bcrypt = require('bcryptjs');
-var moment = require('moment');
+'use strict'
+const bcrypt = require('bcryptjs');
+const moment = require('moment');
 
 moment.locale('zh-cn'); // 使用中文
 
 // 格式化时间
-exports.formatDate = function(date, friendly) {
+function formatDate(date, friendly) {
     date = moment(date);
-
     if (friendly) {
         return date.fromNow();
     } else {
         return date.format('YYYY-MM-DD HH:mm');
     }
 
-};
+}
 
-exports.validateId = function(str) {
+function validateId(str) {
     return (/^[a-zA-Z0-9\-_]+$/i).test(str);
-};
+}
 
-exports.bhash = function(str) {
-    return new Promise((resolve,reject)=>{
-        bcrypt.hash(str, 10, (err,result)=>{
-            if(err){
+function bhash(str) {
+    return new Promise((resolve, reject) => {
+        bcrypt.hash(str, 10, (err, result) => {
+            if (err) {
                 reject({
-                    result_code:-1,
-                    status:500,
-                    error:err
+                    result_code: -1,
+                    status: 500,
+                    error: err
                 });
             }
             resolve(result);
         });
     });
-};
+}
 
-exports.bcompare = function(str, hash, callback) {
-    return new Promise((resolve,reject)=>{
-        bcrypt.compare(str, hash, (err,result)=>{
-            if(err){
-               return reject({
-                    result_code:-1,
-                    status:500,
-                    error:err.message
+function bcompare(str, hash, callback) {
+    return new Promise((resolve, reject) => {
+        bcrypt.compare(str, hash, (err, result) => {
+            if (err) {
+                return reject({
+                    result_code: -1,
+                    status: 500,
+                    error: err.message
                 });
             }
             resolve(result);
         });
     });
-};
+}
 
-exports.stringToHex = function(str) {　　　　
-    var val = "";　　　　
+function stringToHex(str) {　　　　
+    let value = "";　　　　
     for (var i = 0; i < str.length; i++) {　　　　　　
-        if (val === "")　　　　　　　　 val = str.charCodeAt(i).toString(16);　　　　　　
-        else　　　　　　　　 val += str.charCodeAt(i).toString(16);　　　　 }　　　　
-    return val;　　 };
+        if (value === "") {
+            value = str.charCodeAt(i).toString(16);　　
+        }　　　　　　　　　　　　
+        else {　　　　　　　　
+            value += str.charCodeAt(i).toString(16);　
+        }　　　
+    }　　　　
+    return value;　　
+}
+
+module.exports = { stringToHex, bcompare, bhash, validateId, formatDate }
