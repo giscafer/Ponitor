@@ -8,9 +8,6 @@
           <button class="btn btn-default" @click="add">添加</button>
         </span>
     </div>
-   <!--  <div class="input-group col-sm-8">
-     <span class="input-group-addon" id="sizing-addon2">@</span>
-   </div> -->
   </div>
 </div>
 <div class="container bs-docs-container">
