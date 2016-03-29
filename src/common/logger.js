@@ -62,4 +62,4 @@ function writeLog(prefix, logType, args) {
     }
 }
 
-module.export = { log, info, debug, warn, error };
+module.exports = { log, info, debug, warn, error };

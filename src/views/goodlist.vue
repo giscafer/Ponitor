@@ -21,6 +21,7 @@
                   <section class="good-item-bd fix-break-word">{{good.name}}</section>
                 </div>
            </div>
+           <div class="separator"></div>
         </div>
      </panel>
 	  <panel class="alibaba" header="淘宝 | 天猫">
@@ -40,6 +41,7 @@
                 <section class="good-item-bd fix-break-word">{{aligood.name}}</section>
               </div>
          </div>
+         <div class="separator"></div>
       </div>
 	  </panel>
 	  <panel class="apple" header="Apple App">
@@ -59,6 +61,7 @@
                 <section class="good-item-bd fix-break-word">{{app.name}}</section>
               </div>
          </div>
+         <div class="separator"></div>
       </div>
 	  </panel>
 	</accordion>
@@ -176,6 +179,11 @@ import nprogress  from 'nprogress';
       overflow-y:auto;
       .name{
         font-size: 0.8em;
+      }
+      .separator{
+        background: #D4D1D1;
+        height:1px;
+        margin:10px 0;
       }
       .good-item-hd{
         img{
