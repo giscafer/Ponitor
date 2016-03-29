@@ -1,18 +1,22 @@
 'use strict'
 
 var gulp = require('gulp'),
-    // minifycss = require('gulp-minify-css'),
-    // uglify = require('gulp-uglify'),
+    minifycss = require('gulp-minify-css'),
+    uglify = require('gulp-uglify'),
     webpack = require('webpack'),
     // rename = require('gulp-rename'),
-    del = require('del');
+    del = require('del'),
+    imagemin = require('gulp-imagemin');
+
 var nodemon = require('gulp-nodemon');
 var watch = require('gulp-watch');
 var config = require('./build/webpack.dev.config.js');
 
 var paths = {
-    scripts: ['src/**/*.vue', 'src/**/*.js', 'src/*.vue'],
-    images: 'src/assets/**/*'
+    watchfiles: ['src/**/*.vue', 'src/**/*.js', 'src/*.vue'],
+    scripts: 'src/assets/js/*',
+    styles: 'src/assets/style/*',
+    images: 'src/assets/image/*'
 };
 /** 
  *  清理生产目录文件
@@ -46,29 +50,35 @@ gulp.task('webpack', function(cb) {
 /** 
  *  压缩css文件
  */
-/*gulp.task('style',function() {
-    gulp.src('./dist/style.css')
-    .pipe(rename({suffix:'.min'}))
-    .pipe(minifycss())
-    .pipe(gulp.dest('dist'));
-});*/
-
+gulp.task('style', function() {
+    gulp.src(paths.styles)
+        .pipe(minifycss())
+        .pipe(gulp.dest('dist/style'));
+});
+/**
+ * images
+ */
+gulp.task('images', function() {
+     gulp.src(paths.images)
+        .pipe(imagemin())
+        .pipe(gulp.dest('dist/img'));
+});
 /** 
  *  压缩js文件
  */
 gulp.task('scripts', function() {
-    gulp.src('./dist/*.js')
+    gulp.src(paths.scripts)
         // .pipe(rename({suffix:'.min'}))
         .pipe(uglify())
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest('dist/js'));
 });
 /**
  * 监听文件修改后使用webpack打包
  */
 gulp.task('watch', function() {
-    gulp.watch(paths.scripts, ['webpack']);
+    gulp.watch(paths.watchfiles, ['webpack']);
     // gulp.watch(paths.images, ['images']);
 });
-gulp.task('default', ['webpack', 'watch'], function() {
+gulp.task('default', ['style','scripts','images', 'webpack', 'watch'], function() {
     gulp.start('start');
 });
