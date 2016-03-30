@@ -4,7 +4,7 @@
 
 可添加天猫、淘宝、京东、Apple App的商品，监控商品价格发生变动时，推送消息！
 
-技术栈：vue.js + ES6 + node.js + mongodb（持久化）+ redis（缓存）
+技术栈：vue.js + ES6 + node.js + mongodb（持久化）
 
 # Usage
 
