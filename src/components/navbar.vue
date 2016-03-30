@@ -4,7 +4,7 @@
         <div class="navbar-header"></div >
         <div  id="bs-navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="../" id="logo">Ponitor</a></li>
+                <li><a href="../" id="logo" title="价格监测">Ponitor</a></li>
             </ul>
             
             <div id="user-info">
@@ -32,6 +32,7 @@
     margin-bottom:0px;
   }
   #logo{
+    font-size: 1.3em;
     color:#1d976c;
   }
   #forgot_password{

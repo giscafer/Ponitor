@@ -263,7 +263,9 @@ exports.activeAccount = function(req, res, next) {
     .then(user=>{
         if (!user) {
             // return next(new Error('[ACTIVE_ACCOUNT] no such user:' + name));
-            return res.redirect('/#!/active?type=danger');
+            res.redirect('/#!/active?type=danger');
+            next();
+            return null;
         }
         let passhash = user.pass;
         if (!user || utility.md5(user.email + passhash + config.session_secret) !== key) {
