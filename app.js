@@ -27,6 +27,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser(config.auth_cookie_name));
 
+process.env.NODE_ENV='development';
+// process.env.NODE_ENV='production';
 
 if (process.env.NODE_ENV=='development') { 
     process.env.MONGO_DB_STR = config.dev_dbUrl;
