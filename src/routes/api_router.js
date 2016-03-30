@@ -18,6 +18,7 @@ router.post('/good/del/:goodId', authMiddleWare.userRequired,goodController.del)
  * signup login logout
  */
 router.post('/signup',signController.signup);
+router.get('/active_account',signController.activeAccount);//账号激活
 router.post('/login',signController.login);
 router.get('/logout',signController.logout);
 

@@ -40,10 +40,9 @@ function detectByUserId(user) {
     GoodModel.list({ userId: userId }, {}).then(goods => {
         htmlData = [];
         _.map(goods, (good, index) => {
-            count++;
             if (good && good.url) {
                 Crawler.crawInfo(good.url).then(goodInfo => {
-                        console.log('crawler ' + good.name + ',' + count + ' of ' + goods.length);
+                        console.log('crawlering ' + good.name+'---- of '+loginname);
 
                         let msg = '',
                             title = good.name,
@@ -108,7 +107,7 @@ function cronSchedule() {
     detect();
 }
 //启动的时候执行一次
-cronSchedule();
+// cronSchedule();
 //每2小时执行监测一次
 let j = schedule.scheduleJob('0 */2 * * *', () => cronSchedule());
 

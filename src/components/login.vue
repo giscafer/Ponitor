@@ -44,10 +44,12 @@
 				request.post('api/login')
 				.send(this.$data)
 				.end((err,res)=>{
-					console.log(err);
-					console.log(res);
+
 					if(res.body.result_code!==0){
-						notie.alert(2,res.body.error,2);
+						notie.alert(2,res.body.error,5);
+						return;
+					}else if(err){
+						notie.alert(2,err,2);
 						return;
 					}else{
 						localStorage.loginname=res.body.userInfo.loginname;

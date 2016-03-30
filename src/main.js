@@ -30,6 +30,10 @@ router.map({
   '/goodlist': {
     name: 'goodlist',
     component: require('./views/goodlist.vue')
+  },
+  '/active': {
+    name: 'active',
+    component: require('./views/active.vue')
   }
 })
 
@@ -37,12 +41,10 @@ router.start(App, '#app')
 
 router.beforeEach(function ({ to, next }) {
   if (to.path === '/goodlist') {
-     jQuery('#nv-content').hide();
-     jQuery('#navbar').css({background: '#F5F5F5'});
+    Ponitor.hideCon();
   }else{
-    jQuery('#nv-content').show();
-    jQuery('#navbar').css({background: 'white'});
+    Ponitor.showCon();
   }
-  next()
+  next();
 });
 

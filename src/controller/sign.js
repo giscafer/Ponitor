@@ -111,7 +111,8 @@ exports.signup = function(req, res, next) {
     UserModel.getUsersByQueryAsync(query, opt)
         .then(users => {
             if (users.length > 0) {
-                return errHandler('用户名或邮箱已被使用');
+                errHandler('用户名或邮箱已被使用');
+                return null;
             }
             //加密密码后保存
             tools.bhash(pass)
@@ -133,10 +134,11 @@ exports.signup = function(req, res, next) {
                             mail.sendActiveMail(email, utility.md5(email + passhash + config.session_secret), loginname);
                             res.send({
                                 result_code: 0,
-                                message: '欢迎加入' + config.name + '！我们已给您的注册邮箱发送了一封邮件，请点击里面的链接来激活您的帐号。',
+                                success: '欢迎加入' + config.name + '！我们已给您的注册邮箱发送了一封邮件，请点击里面的链接来激活您的帐号。',
                                 referer: '/signin'
                             });
                         }
+                        return null;
                     }).catch(err => {
                         return next(err);
                     });
@@ -208,7 +210,7 @@ exports.login = function(req, res, next) {
                         return res.status(403).send({
                             result_code: -1,
                             status: 403,
-                            error: '此账号还没有被激活，激活链接已发送到 ' + user.email + ' 邮箱，请查收。'
+                            error: '此账号还没有被激活，激活链接已发送到 ' + user.email + ' 邮箱，请查收并激活。'
                         });
                     }
                     //将session保存到cookie中
@@ -260,33 +262,25 @@ exports.activeAccount = function(req, res, next) {
     UserModel.getUserByLoginNameAsync(name)
     .then(user=>{
         if (!user) {
-            return next(new Error('[ACTIVE_ACCOUNT] no such user:' + name));
+            // return next(new Error('[ACTIVE_ACCOUNT] no such user:' + name));
+            return res.redirect('/#!/active?type=danger');
         }
         let passhash = user.pass;
         if (!user || utility.md5(user.email + passhash + config.session_secret) !== key) {
-            return res.send({
-                result_code:-1,
-                status:422,
-                error: '信息有误，账号无法被激活。'
-            });
+           
+            return res.redirect('/#!/active?type=danger');
         }
         if (user.active) {
-            return res.send({
-                result_code:-1,
-                status:422,
-                error: '账号已经是激活状态。'
-            });
+           
+            return res.redirect('/#!/active?type=warning');
         }
         user.active = true;
         user.save(err=>{
             if (err) {
                 return next(err);
             }
-            res.send({
-                result_code:0,
-                status:200,
-                success: '账号已被激活，请登录'
-            });
+           
+            return res.redirect('/#!/active?type=info');
         });
     })
     .catch(err=>{

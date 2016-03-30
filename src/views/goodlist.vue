@@ -85,10 +85,7 @@ import nprogress  from 'nprogress';
     },
   	ready(){
   		if(this.$route.path==='/goodlist'){
-  			jQuery('#nv-content').hide();
-  			jQuery('#navbar').css({
-  			  background: '#F5F5F5'
-  			});
+  			Ponitor.hideCon();
         jQuery(".panel-collapse").css('max-height', '');
   		}
   	},

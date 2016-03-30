@@ -10,7 +10,7 @@ var gulp = require('gulp'),
 
 var nodemon = require('gulp-nodemon');
 var watch = require('gulp-watch');
-var config = require('./build/webpack.dev.config.js');
+var config = require('./build/webpack.prod.config.js');
 
 var paths = {
     watchfiles: ['src/**/*.vue', 'src/**/*.js', 'src/*.vue'],

@@ -52,10 +52,13 @@
 				request.post('api/signup')
 				.send(this.$data)
 				.end((err,res)=>{
-					// console.log(err);
-					// console.log(res);
+					
 					if(res.body.result_code!==0){
 						notie.alert(2,res.body.error,2);
+						return;
+					}
+					if(err){
+						notie.alert(2,err,2);
 						return;
 					}
 					notie.alert(1,res.body.success,10);
