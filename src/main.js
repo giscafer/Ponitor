@@ -39,6 +39,10 @@ router.map({
     name: 'searchpass',
     component: require('./views/searchpass.vue')
   },
+  '/message': {
+    name: 'message',
+    component: require('./components/message.vue')
+  },
   '/resetpass': {
     name: 'resetpass',
     component: require('./views/resetpass.vue')

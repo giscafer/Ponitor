@@ -21,6 +21,8 @@ router.post('/signup',signController.signup);
 router.post('/login',signController.login);
 router.get('/logout',signController.logout);
 router.get('/active_account',signController.activeAccount);//账号激活
-router.post('/searchpass',signController.searchPass);//账号激活
+router.post('/searchpass',signController.searchPass);//获取重置邮箱
+router.post('/resetvalid',signController.resetValid);//验证
+router.post('/updatepass',signController.updatePass);//重置密码
 
 module.exports = router;

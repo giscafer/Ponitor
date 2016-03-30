@@ -304,6 +304,7 @@ exports.searchPass = function(req, res, next) {
              result_code:-1,
              type:'warning',
              referer:'searchpass',
+             error:'邮箱格式不正确！',
              email:email
          });
     }
@@ -311,15 +312,8 @@ exports.searchPass = function(req, res, next) {
     let retrieveKey = uuid.v4();
     let retrieveTimer = new Date().getTime();
 
-    UserModel.getUserByMail(email, function(err, user) {
-        if (err) {
-            return res.send({
-                result_code:-1,
-                referer:'searchpass',
-                email:email,
-                error:err && (err.message || err)
-            });
-        }
+    UserModel.getUserByMailAsync(email).then(user=> {
+      
         if(!user){
             return res.send({
                 result_code:-1,
@@ -344,6 +338,13 @@ exports.searchPass = function(req, res, next) {
             });
 
         });
+    }).catch(err=>{
+        return res.send({
+            result_code:-1,
+            referer:'searchpass',
+            email:email,
+            error:err && (err.message || err)
+        });
     });
 };
 /**
@@ -352,30 +353,84 @@ exports.searchPass = function(req, res, next) {
  * @param  {HttpRequest}   res 
  * @param  {Function} next
  */
-exports.resetPass = function(req, res, next) {
+exports.resetValid = function(req, res, next) {
 
-    let key = validator.trim(req.query.key);
-    let name = validator.trim(req.query.name);
+    let key = validator.trim(req.body.key);
+    let name = validator.trim(req.body.name);
 
     UserModel.getUserByNameAndKeyAsync(name, key)
         .then(user => {
-            if (err) {
-                return next(err);
-            }
             if (!user) {
-                return res.status(403).send({
-                    result_code: -1,
-                    error: '信息有误，密码无法重置。'
-                });
+                return res.redirect('/#!/message');
             }
             let now = new Date().getTime();
             let oneDay = 1000 * 60 * 60 * 24;
             if (!user.retrieve_time || now - user.retrieve_time > oneDay) {
-                return res.status(403).render({
-                  result_code: -1,
-                  error: '信息有误，密码无法重置。'
-                });
+                return res.redirect('/#!/message');
             }
-            return res.send('sign/reset', { name: name, key: key });
+            res.send('/#!/resetpass');
+            return null;
+        })
+        .catch(err=>{
+            return next(err);
         });
+};
+/**
+ * 密码更新保存
+ * @param  {HttpRequest}   req 
+ * @param  {HttpRequest}   res 
+ * @param  {Function} next
+ */
+exports.updatePass=function(req,res,next){
+    var psw=validator.trim(req.body.pass) || '';
+    var repsw=validator.trim(req.body.repass) || '';
+    var key=validator.trim(req.body.key) || '';
+    var name=validator.trim(req.body.name)  || '';
+
+    if(psw!==repsw){
+        return res.send({
+            result_code:-1,
+            name:name,
+            key:key,
+            error:'两次密码输入不一致。'
+        });
+    }
+    UserModel.getUserByNameAndKeyAsync(name,key)
+    .then(user=>{
+        if(!user){
+            return res.send({
+               result_code:-1,
+               error:'错误的激活链接'
+            });
+        }
+        tools.bhash(psw)
+        .then(passhash=>{
+            user.pass=passhash;
+            //清空重置标志字段
+            user.retrieve_key=null;
+            user.retrieve_time=null;
+            user.active=true;//用户激活
+
+            user.save(function(err){
+                if(err){
+                    return next(err);
+                }
+                return res.send({
+                    result_code:0,
+                    success:'你的密码已重置。'
+                });
+            });
+        }).catch(err=>{
+            res.send({
+                result_code:-1,
+                error:err && (err.message || err)
+            });
+        })
+    })
+    .catch(err=>{
+        res.send({
+            result_code:-1,
+            error:err && (err.message || err)
+        });
+    });
 };

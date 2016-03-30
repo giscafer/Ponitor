@@ -5,7 +5,7 @@
 		  {{success}}
 		</alert>
 	</div>
-	<div id="danger" v-show="error">
+	<div id="danger" v-show="error!==''">
 		<alert type="danger" >
 		  {{error}}
 		</alert>
@@ -13,7 +13,7 @@
 	<form class="searchpass form-inline ">
 	  <div class="form-group">
 	    <label for="inputEmail">请输入注册邮箱：</label>
-	    <input type="email" class="email form-control" id="inputEmail" v-model="email" placeholder="jane.doe@example.com">
+	    <input type="email" class="email form-control" id="inputEmail" v-model="email" placeholder="jane.doe@example.com"  @keyup.enter="getEmail">
 	  </div>
 	  <button type="button" class="btn btn-default" @click="getEmail">确定</button>
 	</form>
@@ -35,6 +35,14 @@ export default{
   		Ponitor.hideCon();
   		let type=this.$route.query.type;
   		this.$data[type]=true;
+  		this.$data.error='';
+  		this.$data.success='';
+	},
+	route: {
+		data(){
+			this.$data.success='';
+			this.$data.error='';
+		}
 	},
 	methods:{
 		getEmail:function(){
@@ -52,6 +60,7 @@ export default{
 				}else{
 					this.$data.error='';
 					this.$data.success=res.body.success;
+					Ponitor.fadeOut('#info',4000);
 				}
 			});
 		}
@@ -64,7 +73,7 @@ export default{
 
 <style>
 	#content{
-		 margin:50px 240px 0 240px;
+		 margin:50px 340px 50px 340px;
 		 .searchpass{
 		 	margin-left: 300px;
 		 }

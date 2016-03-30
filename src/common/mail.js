@@ -61,7 +61,7 @@ function sendResetPassMail(who, token, name) {
     var subject = config.name + '密码重置';
     var html = '<p>您好：' + name + '</p>' +
         '<p>我们收到您在' + config.name + '重置密码的请求，请在24小时内单击下面的链接来重置密码：</p>' +
-        '<a href="' + SITE_ROOT_URL + '/reset_pass?key=' + token + '&name=' + name + '">重置密码链接</a>' +
+        '<a href="' + SITE_ROOT_URL + '/#!/resetpass?key=' + token + '&name=' + name + '">重置密码链接</a>' +
         '<p>若您没有在' + config.name + '填写过注册信息，说明有人滥用了您的电子邮箱，请删除此邮件，我们对给您造成的打扰感到抱歉。</p>' +
         '<p>' + config.name + ' 谨上。</p>';
 
