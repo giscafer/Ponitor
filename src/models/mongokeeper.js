@@ -1,7 +1,7 @@
 /**
  * 数据库连接
  */
-'use strict';
+'use strict'
 const mongoose = require('mongoose');
 const util = require("util");
 // mongoose.Promise = require('bluebird');

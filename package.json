@@ -4,6 +4,7 @@
   "description": "Pomitor 价格监测",
   "main": "index.js",
   "scripts": {
+    "start": "gulp",
     "dev": "webpack-dev-server --inline --hot --config build/webpack.dev.config.js",
     "build": "webpack --progress --hide-modules --config build/webpack.prod.config.js",
     "test": "karma start build/karma.conf.js"
