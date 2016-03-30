@@ -20,7 +20,7 @@ exports.validateName_api_v1 = function(req, res, next) {
         if (err) {
             return next(err);
         }
-        var code = 0,
+        let code = 0,
             msg = '该昵称可以使用';
         if (users.length > 0) {
             code = 1;
@@ -65,9 +65,9 @@ exports.signup = function(req, res, next) {
     let email = validator.trim(req.body.email).toLowerCase();
     let pass = validator.trim(req.body.pass);
     let rePass = validator.trim(req.body.re_pass);
-    let active=false;
-    if (!config.need_active_mail){//如果不需要验证邮箱，默认激活
-        active=true;
+    let active = false;
+    if (!config.need_active_mail) { //如果不需要验证邮箱，默认激活
+        active = true;
     }
 
     let errHandler = function(msg) {
@@ -118,10 +118,10 @@ exports.signup = function(req, res, next) {
             tools.bhash(pass)
                 .then(passhash => {
                     UserModel.create({
-                        loginname:loginname,
-                        pass:passhash,
-                        email:email,
-                        active:active
+                        loginname: loginname,
+                        pass: passhash,
+                        email: email,
+                        active: active
                     }).then(user => {
                         //发送激活邮件
                         if (!config.need_active_mail) {
@@ -150,10 +150,10 @@ exports.signup = function(req, res, next) {
         .catch(err => {
             return next(err);
         });
-    
+
 };
 
-var notJump = [
+let notJump = [
     '/active_account', //激活页面
     '/reset_pass', //重置密码页面，避免重置两次
     '/signup', //注册页面
@@ -214,16 +214,16 @@ exports.login = function(req, res, next) {
                         });
                     }
                     //将session保存到cookie中
-                    authMiddleWare.gen_session(user, res,next);
-                    var refer = req.session._loginReferer || '/';
-                    for (var i = 0, len = notJump.length; i !== len; ++i) {
+                    authMiddleWare.gen_session(user, res, next);
+                    let refer = req.session._loginReferer || '/';
+                    for (let i = 0, len = notJump.length; i !== len; ++i) {
                         if (laoUtils.contains(refer, notJump[i])) {
                             refer = '/';
                             break;
                         }
                     }
                     res.send({
-                        userInfo:user,
+                        userInfo: user,
                         result_code: 0,
                         status: 200,
                         refer: refer,
@@ -246,8 +246,8 @@ exports.logout = function(req, res, next) {
         path: '/'
     });
     res.send({
-        result_code:0,
-        refer:'/'
+        result_code: 0,
+        refer: '/'
     });
 };
 /**
@@ -260,65 +260,73 @@ exports.activeAccount = function(req, res, next) {
     let key = validator.trim(req.query.key);
     let name = validator.trim(req.query.name);
     UserModel.getUserByLoginNameAsync(name)
-    .then(user=>{
-        if (!user) {
-            // return next(new Error('[ACTIVE_ACCOUNT] no such user:' + name));
-            res.redirect('/#!/active?type=danger');
-            next();
-            return null;
-        }
-        let passhash = user.pass;
-        if (!user || utility.md5(user.email + passhash + config.session_secret) !== key) {
-           
-            return res.redirect('/#!/active?type=danger');
-        }
-        if (user.active) {
-           
-            return res.redirect('/#!/active?type=warning');
-        }
-        user.active = true;
-        user.save(err=>{
-            if (err) {
-                return next(err);
+        .then(user => {
+            if (!user) {
+                // return next(new Error('[ACTIVE_ACCOUNT] no such user:' + name));
+                res.redirect('/#!/active?type=danger');
+                next();
+                return null;
             }
-           
-            return res.redirect('/#!/active?type=info');
+            let passhash = user.pass;
+            if (!user || utility.md5(user.email + passhash + config.session_secret) !== key) {
+
+                return res.redirect('/#!/active?type=danger');
+            }
+            if (user.active) {
+
+                return res.redirect('/#!/active?type=warning');
+            }
+            user.active = true;
+            user.save(err => {
+                if (err) {
+                    return next(err);
+                }
+
+                return res.redirect('/#!/active?type=info');
+            });
+        })
+        .catch(err => {
+            return next(err);
         });
-    })
-    .catch(err=>{
-        return next(err);
-    });
-    
+
 };
-//密码找回页面
-exports.showSearchPass = function(req, res) {
-    res.render('sign/search_pass');
-};
+
 /**
  * 找回密码申请
  * @param  {HttpRequest}   req 
  * @param  {HttpRequest}   res 
  * @param  {Function} next
  */
-exports.updateSearchPass = function(req, res, next) {
-    var email = validator.trim(req.body.email).toLowerCase();
+exports.searchPass = function(req, res, next) {
+    let email = validator.trim(req.body.email).toLowerCase();
     if (!validator.isEmail(email)) {
-        return res.render('sign/search_pass', {
-            error: '邮箱不合法',
-            email: email
-        });
+         return res.send({
+             result_code:-1,
+             type:'warning',
+             referer:'searchpass',
+             email:email
+         });
     }
     //动态生成retrieve_key和timestamp到users collection，之后重置密码进行验证
-    var retrieveKey = uuid.v4();
-    var retrieveTimer = new Date().getTime();
+    let retrieveKey = uuid.v4();
+    let retrieveTimer = new Date().getTime();
 
     UserModel.getUserByMail(email, function(err, user) {
         if (err) {
-            res.render('sign/search_pass', {
-                error: '没有这个电子邮箱。',
-                email: email
+            return res.send({
+                result_code:-1,
+                referer:'searchpass',
+                email:email,
+                error:err && (err.message || err)
             });
-            return;
+        }
+        if(!user){
+            return res.send({
+                result_code:-1,
+                referer:'searchpass',
+                email:email,
+                error:'没有这个电子邮箱！'
+            });
         }
         user.retrieve_key = retrieveKey;
         user.retrieve_time = retrieveTimer;
@@ -329,9 +337,10 @@ exports.updateSearchPass = function(req, res, next) {
             //发送重置密码的邮件
 
             mail.sendResetPassMail(email, retrieveKey, user.loginname);
-
-            res.render('notify/notify', {
-                success: '我们已给您填写的电子邮箱发送了一封邮件，请在24小时内点击里面的链接来重置密码。'
+            return res.send({
+                result_code:0,
+                referer:'searchpass',
+                success:'我们已给您填写的电子邮箱发送了一封邮件，请在24小时内点击里面的链接来重置密码！'
             });
 
         });
@@ -345,61 +354,28 @@ exports.updateSearchPass = function(req, res, next) {
  */
 exports.resetPass = function(req, res, next) {
 
-    var key = validator.trim(req.query.key);
-    var name = validator.trim(req.query.name);
+    let key = validator.trim(req.query.key);
+    let name = validator.trim(req.query.name);
 
-    UserModel.getUserByNameAndKey(name, key, function(err, user) {
-        if (err) {
-            next(err);
-        }
-        if (!user) {
-            res.status(403);
-            return res.render('notify/notify', { error: '信息有误，密码无法重置。' });
-        }
-        var now = new Date().getTime();
-        var oneDay = 1000 * 60 * 60 * 24;
-        if (!user.retrieve_time || now - user.retrieve_time > oneDay) {
-            res.status(403);
-            return res.render('notify/notify', { error: '该连接已过期，请重新申请。' });
-        }
-        return res.render('sign/reset', { name: name, key: key });
-    });
-};
-/**
- * 密码更新保存
- * @param  {HttpRequest}   req 
- * @param  {HttpRequest}   res 
- * @param  {Function} next
- */
-exports.updatePass = function(req, res, next) {
-    var psw = validator.trim(req.body.psw) || '';
-    var repsw = validator.trim(req.body.repsw) || '';
-    var key = validator.trim(req.body.key) || '';
-    var name = validator.trim(req.body.name) || '';
-
-    var ep = new EventProxy();
-    ep.fail(next);
-
-    if (psw !== repsw) {
-        return res.render('sign/reset', { name: name, key: key, error: '两次密码输入不一致。' });
-    }
-    UserModel.getUserByNameAndKey(name, key, ep.done(function(user) {
-        if (!user) {
-            return res.render('notify/notify', { error: '错误的激活链接' });
-        }
-        tools.bhash(psw, ep.done(function(passhash) {
-            user.pass = passhash;
-            //清空重置标志字段
-            user.retrieve_key = null;
-            user.retrieve_time = null;
-            user.active = true; //用户激活
-
-            user.save(function(err) {
-                if (err) {
-                    return next(err);
-                }
-                return res.render('notify/notify', { success: '你的密码已重置。' });
-            });
-        }));
-    }));
+    UserModel.getUserByNameAndKeyAsync(name, key)
+        .then(user => {
+            if (err) {
+                return next(err);
+            }
+            if (!user) {
+                return res.status(403).send({
+                    result_code: -1,
+                    error: '信息有误，密码无法重置。'
+                });
+            }
+            let now = new Date().getTime();
+            let oneDay = 1000 * 60 * 60 * 24;
+            if (!user.retrieve_time || now - user.retrieve_time > oneDay) {
+                return res.status(403).render({
+                  result_code: -1,
+                  error: '信息有误，密码无法重置。'
+                });
+            }
+            return res.send('sign/reset', { name: name, key: key });
+        });
 };

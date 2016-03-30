@@ -32,7 +32,8 @@ module.exports={
     redis_host: 'redis.duapp.com',
     redis_port: 80,
     redis_db: 'ywBsVflljSOlNw********',
-    need_active_mail:false,
+    //注册是否需要激活，false则不发送邮件激活
+    need_active_mail:true,
     // 邮箱配置 need_active_mail为true时，必须设置
     mail_opts: {
         debug:true,
@@ -40,7 +41,7 @@ module.exports={
         port: 25,
         auth: {
             user: 'gisbbs@126.com',
-            pass: '111111111'
+            pass: 'laohoubin0716'
         }
     },
     admins:{}

@@ -34,6 +34,14 @@ router.map({
   '/active': {
     name: 'active',
     component: require('./views/active.vue')
+  },
+  '/searchpass': {
+    name: 'searchpass',
+    component: require('./views/searchpass.vue')
+  },
+  '/resetpass': {
+    name: 'resetpass',
+    component: require('./views/resetpass.vue')
   }
 })
 

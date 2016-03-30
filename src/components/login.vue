@@ -20,7 +20,7 @@
 	  </div>
 	  </div>
 	  <div slot="modal-footer" class="modal-footer">
-	    <a id="forgot_password" href="#" @click='showLoginModal = false'>忘记密码了？</a>
+	    <a id="forgot_password" href="javascript:void(0)" @click='searchpass'>忘记密码了？</a>
 	    <button type="button" class="btn btn-default" @click='showLoginModal = false'>关闭</button>
 	    <button type="submit" class="btn btn-success" @click='login'>登录</button>
 	  </div>
@@ -60,6 +60,10 @@
 					}
 					
 				});
+			},
+			searchpass:function(e){
+				this.$data.showLoginModal=false;
+				this.$router.go({ name: 'searchpass'});
 			}
 		},
 		components:{

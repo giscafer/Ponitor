@@ -25,6 +25,8 @@ or
 
 ![index](https://raw.githubusercontent.com/giscafer/Ponitor/master/wiki/index_preview.png)
 
+![index](https://raw.githubusercontent.com/giscafer/Ponitor/master/wiki/goodlist_preview.png)
+
 关注的商品价格发生变化（涨价or降价）的时候发生邮件通知，如测试截图：
 
 ![index](https://raw.githubusercontent.com/giscafer/Ponitor/master/wiki/email-sample.png)
