@@ -12,48 +12,6 @@ const laoUtils = require('lao-utils');
 
 
 /**
- * 验证昵称是否存在 api接口（ajax请求）
- */
-exports.validateName_api_v1 = function(req, res, next) {
-    let name = validator.trim(req.params.name);
-    UserModel.getUsersByName(name, function(err, users) {
-        if (err) {
-            return next(err);
-        }
-        let code = 0,
-            msg = '该昵称可以使用';
-        if (users.length > 0) {
-            code = 1;
-            msg = '该昵称已被使用';
-        }
-        res.send({
-            status: code,
-            message: msg
-        });
-    });
-
-};
-/**
- * 验证昵称是否存在
- */
-exports.validateName = function(req, res, next) {
-    let loginname = validator.trim(req.body.loginname);
-    UserModel
-        .getUserByLoginNameAsync(loginname)
-        .then(user => {
-            if (user) {
-                return res.send({
-                    status: 402,
-                    message: '该昵称已被使用'
-                });
-            }
-            next();
-        })
-        .catch(function(err) {
-            return next(err);
-        });
-};
-/**
  * 注册入口
  * @param  {HttpRequest}   req  
  * @param  {HttpRequest}   res  
@@ -153,12 +111,6 @@ exports.signup = function(req, res, next) {
 
 };
 
-let notJump = [
-    '/active_account', //激活页面
-    '/reset_pass', //重置密码页面，避免重置两次
-    '/signup', //注册页面
-    '/search_pass' //search pass page
-];
 /**
  * Handler user login
  * @param {HttpRequest} req
@@ -215,18 +167,12 @@ exports.login = function(req, res, next) {
                     }
                     //将session保存到cookie中
                     authMiddleWare.gen_session(user, res, next);
-                    let refer = req.session._loginReferer || '/';
-                    for (let i = 0, len = notJump.length; i !== len; ++i) {
-                        if (laoUtils.contains(refer, notJump[i])) {
-                            refer = '/';
-                            break;
-                        }
-                    }
+                   
                     res.send({
                         userInfo: user,
                         result_code: 0,
                         status: 200,
-                        refer: refer,
+                        refer: '/',
                         success: '登录成功！'
                     });
                 })
