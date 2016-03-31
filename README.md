@@ -6,7 +6,7 @@
 
 技术栈：vue.js + ES6 + node.js + mongodb（持久化）
 
-BAE体验：http://ponitor.duapp.com/（账号：ponitor，密码：ponitor）
+[BAE在线体验](http://ponitor.duapp.com/)（提供已注册账号：ponitor，密码：ponitor）
 
 
 # Usage
