@@ -8,7 +8,13 @@
 
 # Usage
 
-将`src/config.global.default.js`文件重命名为`config.global.js`
+前提：
+
+1、确保node版本支持ES6，项目开发node版本为v5.3.0
+
+2、将`src/config.global.default.js`文件重命名为`config.global.js`
+
+然后：
 
 - `npm install`
 
