@@ -54,7 +54,7 @@ if (process.env.NODE_ENV=='development') {
     //redis保存session
     var redis = require('redis');
     var RedisStore = require('connect-redis')(session);
-    var client = redis.createClient(80, 'redis.duapp.com', {
+    var client = redis.createClient(config.redis_port, 'redis.duapp.com', {
         "no_ready_check": true
     });
     client.on("error", function(err) {
