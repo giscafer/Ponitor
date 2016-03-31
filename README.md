@@ -6,6 +6,9 @@
 
 技术栈：vue.js + ES6 + node.js + mongodb（持久化）
 
+BAE体验：http://ponitor.duapp.com/
+
+
 # Usage
 
 前提：
