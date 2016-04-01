@@ -13,7 +13,6 @@ const laoUtils = require('lao-utils');
 const config = require('../config.global');
 const mailFrom = util.format('%s <%s>', config.name, config.mail_opts.auth.user);
 const SITE_ROOT_URL = 'http://' + (process.env.NODE_ENV === 'development' ? (config.localhost + ":" + config.port) : config.domain);
-let htmlData = [];
 
 function detect() {
     let count = 0;
@@ -38,7 +37,7 @@ function detectByUserId(user) {
     }
 
     GoodModel.list({ userId: userId }, {}).then(goods => {
-        htmlData = [];
+        // let htmlData = [];
         _.map(goods, (good, index) => {
             if (good && good.url) {
                 Crawler.crawInfo(good.url).then(goodInfo => {
@@ -89,15 +88,13 @@ function detectByUserId(user) {
                                 "url": good.url,
                                 "picurl": good.image
                             };
-                            htmlData.push(concatHtml(article));
-                            if (htmlData.length > 0) {
-                                Mail.sendMail({
-                                    from: mailFrom,
-                                    to: email,
-                                    subject: '[' + config.name + ']' + article.title.substring(0, 50),
-                                    html: htmlData.join('')
-                                });
-                            }
+                            var subjectHtml=concatHtml(article);
+                            Mail.sendMail({
+                                from: mailFrom,
+                                to: email,
+                                subject: '[' + config.name + ']' + article.title.substring(0, 50),
+                                html: subjectHtml
+                            });
                         }
                     })
                     .catch(err => {
