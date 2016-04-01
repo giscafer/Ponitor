@@ -16,6 +16,7 @@ const GoodSchema = new Schema({
     description: { type: String },
     url: { type: String }, //商品链接
     type: { type: String }, //商品分类
+    onSale: { type: Boolean }, //下架则为false
     create_at: { type: Date, default: Date.now },
     update_at: { type: Date, default: Date.now }
 });

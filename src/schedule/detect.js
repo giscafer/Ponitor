@@ -43,27 +43,45 @@ function detectByUserId(user) {
             if (good && good.url) {
                 Crawler.crawInfo(good.url).then(goodInfo => {
                         console.log('crawlering ' + good.name+'---- of '+loginname);
-
+                        //如果标记下架了，爬虫获取价格还是-1，直接return
+                        let crawPrice=Number(goodInfo.marketPrice);
+                        if(good.onSale===false && crawPrice===-1){
+                            return null;
+                        }
                         let msg = '',
-                            title = good.name,
-                            tmpl = '，原价格：' + good.marketPrice + '，现价格：' + goodInfo.marketPrice;
-                        const status = Number(goodInfo.marketPrice) - Number(good.marketPrice);
+                            onSale=true,
+                            statusStr='',
+                            title = good.name;
+                        let  tmpl = '，原价格：' + good.marketPrice + '，现价格：' + crawPrice;
+                        
+                        const status = crawPrice- Number(good.marketPrice);
                         //监测价格是否变化
                         if (status !== 0) {
                             console.log(good.name + ' price had changed!');
-                            GoodModel.update(good._id, {
-                                    oldPrice: good.marketPrice,
-                                    priceText: '￥' + goodInfo.marketPrice,
-                                    marketPrice: goodInfo.marketPrice
-                                })
-                                .catch(err => reject(err));
-                            //拼接邮件信息
+                            
                             if (status > 0) {
-                                title += ' 涨价了';
+                                statusStr = ' 涨价了';
                             } else {
-                                title += ' 降价了';
+                                statusStr = ' 降价了';
                             }
-                            msg = title + tmpl;
+                            msg = title + statusStr + tmpl;
+                            if(crawPrice===-1){
+                                msg=title + ' 已经下架了！';
+                                onSale=false; 
+                            }
+                            //update good
+                       
+                            good.onSale=onSale;
+                            good.oldPrice=good.marketPrice;
+                            good.priceText='￥' + goodInfo.marketPrice;
+                            good.marketPrice=goodInfo.marketPrice;
+                            good.save(function(err,g){
+                                if(err){
+                                    console.log('保存出错！');
+                                }
+                            });
+
+                            //拼接邮件信息
                             let article = {
                                 "loginname": loginname,
                                 "title": title,
@@ -98,7 +116,8 @@ function concatHtml(article) {
         '<p>您关注的商品 ' + article.description + '</p>' +
         '<a href  = "' + article.url + '" style="color:blue">详情链接</a>' +
         // '<img src="'+article.image+'"><img><br><br>'+
-        '<hr><p>若您没有在<a href  = "' + SITE_ROOT_URL + '">' + config.name + '</a>网站上关注过商品，说明有人滥用了您的电子邮箱，请删除此邮件，我们对给您造成的打扰感到抱歉。</p>' +
+        '<hr><p>若您没有在<a href  = "' + SITE_ROOT_URL + '">' + 
+        config.name + '</a>网站上关注过商品，说明有人滥用了您的电子邮箱，请删除此邮件，我们对给您造成的打扰感到抱歉。</p>' +
         '<p>' + config.name + ' 谨上。</p>';
     return html;
 }
