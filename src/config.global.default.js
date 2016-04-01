@@ -1,10 +1,6 @@
 module.exports={
     name:'Ponitor',
-
-	 /**
-     * URL
-     * 域名地址,如果没有请留空，(!domain || devMode)===true时会读取host+':'+port作为地址
-     */
+    //域名,如果没有请留空，env.NODE_ENV='development'时会读取host+':'+port作为地址
     domain: 'ponitor.duapp.com', //上线域名
     localhost: '127.0.0.1', //本地部署
     port: 18080, //本地部署
@@ -25,7 +21,7 @@ module.exports={
     auth_cookie_name: 'ponitor_cookie', //cookie名称
 
     // redis 配置，BAE
-    //百度应用的	用户名和密码
+    //百度应用的 用户名和密码
     bae_accesskey:'hehehe',
     bae_secretkey:'hehehe',
     
