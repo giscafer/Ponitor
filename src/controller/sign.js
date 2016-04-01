@@ -208,7 +208,7 @@ exports.activeAccount = function(req, res, next) {
     UserModel.getUserByLoginNameAsync(name)
         .then(user => {
             if (!user) {
-                // return next(new Error('[ACTIVE_ACCOUNT] no such user:' + name));
+                // no such user;
                 res.redirect('/#!/active?type=danger');
                 next();
                 return null;

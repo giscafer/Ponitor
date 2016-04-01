@@ -6,8 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "webpack-dev-server --inline --hot --config build/webpack.dev.config.js",
-    "build": "webpack --progress --hide-modules --config build/webpack.prod.config.js",
-    "test": "karma start build/karma.conf.js"
+    "build": "webpack --progress --hide-modules --config build/webpack.prod.config.js"
   },
   "dependencies": {
     "bcryptjs": "^2.3.0",

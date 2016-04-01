@@ -4,7 +4,7 @@
 
 可添加天猫、淘宝、京东、Apple App的商品，监控商品价格发生变动时（每天定时器），推送消息（目前是发送邮件）！
 
-技术栈：vue.js + ES6 + node.js + mongodb（持久化）
+技术栈：vue.js + ES6 + node.js + mongodb
 
 [BAE在线体验](http://ponitor.duapp.com/)（提供已注册账号：ponitor，密码：ponitor）
 
@@ -13,23 +13,16 @@
 
 前提：
 
-1、确保node版本支持ES6，项目开发node版本为v5.3.0
+1、确保node版本（4.0以上）支持ES6
 
 2、将`src/config.global.default.js`文件重命名为`config.global.js`
 
-然后：
+3、
 
 - `npm install`
 
 - `gulp`
 
-or
-
-- `npm install`
-
-- `npm run build`
-
-- `node app.js`
 
 
 # Screenshot

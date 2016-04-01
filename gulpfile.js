@@ -15,7 +15,7 @@ var config = require('./build/webpack.prod.config.js');
 var paths = {
     watchfiles: ['src/**/*.vue', 'src/**/*.js', 'src/*.vue'],
     scripts: 'src/assets/js/*',
-    styles: 'src/assets/style/*',
+    styles: ['src/assets/style/*','src/assets/fonts/*'],
     images: 'src/assets/image/*'
 };
 /** 
@@ -51,9 +51,11 @@ gulp.task('webpack', function(cb) {
  *  压缩css文件
  */
 gulp.task('style', function() {
-    gulp.src(paths.styles)
+    gulp.src(paths.styles[0])
         .pipe(minifycss())
         .pipe(gulp.dest('dist/style'));
+    gulp.src(paths.styles[1])
+        .pipe(gulp.dest('dist/fonts'));
 });
 /**
  * images
