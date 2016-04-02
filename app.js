@@ -24,7 +24,7 @@ app.use('/dist', express.static(__dirname + '/dist'));
 app.use(express.static(path.join(__dirname,'public')));
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser(config.auth_cookie_name));
 
 process.env.NODE_ENV='development';

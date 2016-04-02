@@ -6,8 +6,6 @@
 const cheerio=require('cheerio');
 const request=require('superagent');
 
-
-
 function fetchAppInfo(url){
     return new Promise((resolve,reject)=>{
         request.get(url).end((err,res)=>{
@@ -76,9 +74,3 @@ function getId(url){
 
 module.exports={fetchAppInfo};
 
-//const url='https://itunes.apple.com/cn/app/garageband/id408709785?mt=8';
-/*fetchAppInfo(url).then((appInfo)=>{
-    console.log(appInfo);
-}).catch((err)=>{
-    console.log(err);
-});*/

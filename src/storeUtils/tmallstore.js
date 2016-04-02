@@ -80,11 +80,6 @@ function fetchGoodInfo(itemId) {
 
     });
 }
-//test
-// fetchGoodInfo('42323050374').then((goodInfo)=>{
-//  console.log(goodInfo);
-// }).catch((err)=>{
-//  console.log(err);
-// });
+
 
 module.exports = { fetchGoodInfo };

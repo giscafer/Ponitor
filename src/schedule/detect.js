@@ -50,7 +50,7 @@ function detectByUserId(user) {
                         let msg = '',
                             onSale=true,
                             statusStr='',
-                            title = good.name;
+                            title = '【'+good.name+'】';
                         let  tmpl = '，原价格：' + good.marketPrice + '，现价格：' + crawPrice;
                         
                         const status = crawPrice- Number(good.marketPrice);
