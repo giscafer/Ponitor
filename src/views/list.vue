@@ -6,13 +6,14 @@
         <div class="good">
           <div class="icon">
             <img v-bind:src="good.image" alt="" class="pure-img">
-          <div class="name">{{ good.name }}>>>><a href="{{good.url}}" target="_blank">详情</a></div> 
+          <div class="name">{{ good.name }}<br/><a href="{{good.url}}" target="_blank">详情</a>&nbsp;&nbsp;<a  @click="showChart(good._id)">趋势</a></div> 
           <div class="price">{{ good.priceText }}</div> 
           </div>
           </div>
        </div>
      </div>
     </div>
+    <nv-chart :show-chart-modal.sync="showChartModal" :cahrt-option.sync="chartOption"></nv-chart>
   </template>
 
 <script>
@@ -23,6 +24,8 @@ export default {
   data () {
     return { 
     	goods:[],
+        showChartModal:false,
+        chartOption:{},
         adding:false,
         goodUrl:''
      }
@@ -47,7 +50,28 @@ export default {
       this.count++
     }, 1000)
   },
+  methods:{
+    showChart:function(gid){
+      request
+        .post('/api/chart/'+gid)
+        .end((err, res) => {
+          nprogress.done()
+          if (res.body.result_code===-1) {
+            notie.alert(3, res.body.error, 1.5)
+          } else if(err){
+            notie.alert(3, err.message, 1.5)
+          }else{
+             this.$data.showChartModal=true;
+             this.$data.chartOption = res.body;
+             Ponitor.createEchartsLine("priceChart",this.$data.chartOption);
 
+          }
+        })
+    }
+  },
+    components:{
+      'nvChart':require('../components/charts.vue')
+    },
   destroyed () {
     clearInterval(this.handle)
   }

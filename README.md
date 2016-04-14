@@ -2,7 +2,8 @@
 
 [ P ] rice + M [ onitor ] = Ponitor 价格监测
 
-可添加天猫、淘宝、京东、Apple App的商品，监控商品价格发生变动时（每天定时器），推送消息（目前是发送邮件）！
+可添加天猫、淘宝、京东、Apple App的商品，监控商品价格发生变动时（每天定时器），推送消息（目前是发送邮件），
+商品价格趋势分析统计等；
 
 技术栈：vue.js + ES6 + node.js + mongodb
 
@@ -26,15 +27,7 @@
 
 # Screenshot
 
-![index](https://raw.githubusercontent.com/giscafer/Ponitor/master/wiki/index_preview.png)
-
-商品列表管理
-
-![index](https://raw.githubusercontent.com/giscafer/Ponitor/master/wiki/goodlist_preview.png)
-
-关注的商品价格发生变化（涨价or降价）的时候发生邮件通知：
-
-![index](https://raw.githubusercontent.com/giscafer/Ponitor/master/wiki/email-sample2.png)
+[详细功能界面截图](https://github.com/giscafer/Ponitor/wiki/Ponitor%E5%8A%9F%E8%83%BD%E7%95%8C%E9%9D%A2%E6%88%AA%E5%9B%BE)
 
 # Other
 

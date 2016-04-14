@@ -4,10 +4,12 @@ const router = express.Router();
 
 const authMiddleWare = require('../common/auth');
 const goodController = require('../controller/good');
+const chartsController = require('../controller/charts');
 const signController = require('../controller/sign');
 
 /* good api. */
 router.post('/good/:type', goodController.list);
+router.post('/chart/:gid', chartsController.showChart);
 router.post('/goodlist', authMiddleWare.userRequired,goodController.list);
 
 router.post('/good', authMiddleWare.userRequired,goodController.save);

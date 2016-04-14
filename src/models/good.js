@@ -1,6 +1,7 @@
 'use strict'
 
 const mongoose = require('mongoose');
+const laoUtils = require('lao-utils');
 const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
  
@@ -17,6 +18,7 @@ const GoodSchema = new Schema({
     url: { type: String }, //商品链接
     type: { type: String }, //商品分类
     onSale: { type: Boolean, default: true }, //下架则为false
+    floatedData:[{type:Schema.Types.Mixed}],//浮动价格（每次价格变动后，都存储格式为[[时间,价格]]）
     create_at: { type: Date, default: Date.now },
     update_at: { type: Date, default: Date.now }
 });
@@ -39,6 +41,8 @@ function add(info) {
                     error: '该商品已经存在！'
                 });
             } else {
+                //初始价格监测值
+                let pd=[[new Date(),info.price]];
                 GoodModel.create({
                         userId: info.userId,
                         goodId: info.goodId,
@@ -49,13 +53,14 @@ function add(info) {
                         image: info.image,
                         description: info.description,
                         url: info.url,
+                        floatedData: pd,
                         type: info.type
                     })
                     .then(good => {
                         resolve(good);
                      })
                     .catch(err => {
-                        reject(err)
+                        reject(err);
                     });
             }
         }).catch(err => reject(err));
