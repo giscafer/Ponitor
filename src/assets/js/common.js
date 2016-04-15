@@ -19,9 +19,10 @@ var Ponitor = {
     //统计图
     createEchartsLine: function(echartsDiv, options) {
         if (!options) return;
-        var data=options.series;
+        var data=options.data;
         if(data.length===0){
             data.push([]);
+            options.series=data;
         }else{
             for (var i = 0; i < data.length; i++) {
                 if(data[i][0]){
@@ -30,6 +31,14 @@ var Ponitor = {
                     continue;
                 }
             }
+            options.series=[
+                {
+                    name: 'price',
+                    type: 'line',
+                    showAllSymbol: true,
+                    data: data
+                }
+            ];
         }
         option = {
             title: {
@@ -40,8 +49,8 @@ var Ponitor = {
                 trigger: 'item',
                 formatter: function(params) {
                     var date = new Date(params.value[0]);
-                    data = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes();
-                    return data + '<br/>' + params.value[1] + ', ' + params.value[2];
+                    data = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+                    return data + '<br/>' + params.value[1];
                 }
             },
             dataZoom: {
@@ -61,14 +70,7 @@ var Ponitor = {
             yAxis: [{
                 type: 'value'
             }],
-            series: [
-                {
-                    name: 'price',
-                    type: 'line',
-                    showAllSymbol: true,
-                    data: data
-                }
-            ]
+            series: options.series
         };
 
         var myChart = echarts.init($('#' + echartsDiv).get(0));

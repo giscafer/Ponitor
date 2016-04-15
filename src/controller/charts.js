@@ -12,7 +12,7 @@ function showChart(req, res, next) {
             if(good){
             	var options={
             		goodName:good.name,
-            		series:good.floatedData
+            		data:good.floatedData
             	};
             	return res.send(options);
             }else{
