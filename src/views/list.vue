@@ -13,7 +13,7 @@
        </div>
      </div>
     </div>
-    <nv-chart :show-chart-modal.sync="showChartModal" :cahrt-option.sync="chartOption"></nv-chart>
+    <nv-chart :show-chart-modal.sync="showChartModal" ></nv-chart>
   </template>
 
 <script>
@@ -25,7 +25,6 @@ export default {
     return { 
     	goods:[],
         showChartModal:false,
-        chartOption:{},
         adding:false,
         goodUrl:''
      }

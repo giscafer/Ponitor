@@ -13,12 +13,15 @@
                 <div class="card-block">
                   <header class="good-item-hd">
                     <img v-bind:src="good.image" alt="good.name">
-                    <span data-price="{{good.marketPrice}}">{{good.priceText}}</span>
+                    <span data-price="{{good.marketPrice}}">{{good.priceText}}&nbsp;<a type="button" class="btn btn-info btn-xs" @click="showChart(good._id)">
+                      <span class="glyphicon glyphicon-stats" aria-hidden="true"></span> 趋势
+                    </a></span>
                     <button type="button" class="btn btn-danger btn-sm" @click="delHandler(good._id,good.type)">
                       <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> 删除
                     </button>
+
                   </header>
-                  <section class="good-item-bd fix-break-word">{{good.name}}</section>
+                  <section class="good-item-bd fix-break-word"><a href="{{good.url}}" title="点击跳转商城详情页" target="_blank">{{good.name}}</a></section>
                 </div>
            </div>
            <div class="separator"></div>
@@ -28,17 +31,19 @@
 	    <span v-show="alibabaGoods.length===0">
         该分类没有商品
       </span>
-      <div v-else v-for="aligood in alibabaGoods" class="goodlist">
-          <div class="card good-item" data-id="{{aligood._id}}">
+      <div v-else v-for="good in alibabaGoods" class="goodlist">
+          <div class="card good-item" data-id="{{good._id}}">
               <div class="card-block">
                 <header class="good-item-hd">
-                  <img v-bind:src="aligood.image" alt="{{aligood.name}}">
-                   <span data-price="{{aligood.marketPrice}}">{{aligood.priceText}}</span>
-                   <button type="button" class="btn btn-danger btn-sm" @click="delHandler(aligood._id,aligood.type)">
+                  <img v-bind:src="good.image" alt="{{good.name}}">
+                   <span data-price="{{good.marketPrice}}">{{good.priceText}}&nbsp;<a type="button" class="btn btn-info btn-xs" @click="showChart(good._id)">
+                      <span class="glyphicon glyphicon-stats" aria-hidden="true"></span> 趋势
+                    </a></span>
+                   <button type="button" class="btn btn-danger btn-sm" @click="delHandler(good._id,good.type)">
                       <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> 删除
                     </button>
                 </header>
-                <section class="good-item-bd fix-break-word">{{aligood.name}}</section>
+                 <section class="good-item-bd fix-break-word"><a href="{{good.url}}" title="点击跳转商城详情页" target="_blank">{{good.name}}</a></section>
               </div>
          </div>
          <div class="separator"></div>
@@ -53,12 +58,14 @@
               <div class="card-block">
                 <header class="good-item-hd">
                   <img v-bind:src="app.image" alt="{{app.name}}">
-                  <span data-price="{{app.marketPrice}}">{{app.priceText}}</span>
+                  <span data-price="{{app.marketPrice}}">{{app.priceText}}&nbsp;<a type="button" class="btn btn-info btn-xs" @click="showChart(app._id)">
+                      <span class="glyphicon glyphicon-stats" aria-hidden="true"></span> 趋势
+                    </a></span>
                   <button type="button" class="btn btn-danger btn-sm" @click="delHandler(app._id,app.type)">
                      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> 删除
                    </button>
                 </header>
-                <section class="good-item-bd fix-break-word">{{app.name}}</section>
+                <section class="good-item-bd fix-break-word"><a href="{{app.url}}" title="点击跳转商城详情页" target="_blank">{{app.name}}</a></section>
               </div>
          </div>
          <div class="separator"></div>
@@ -66,7 +73,7 @@
 	  </panel>
 	</accordion>
 </div>
-
+<nv-chart :show-chart-modal.sync="showChartModal" ></nv-chart>
 </template>
 <script>
 import { accordion } from 'vue-strap';
@@ -78,6 +85,7 @@ import nprogress  from 'nprogress';
   export default{
     data(){
       return{
+        showChartModal:false,
         jdGoods:[],
         alibabaGoods:[],
         appleApps:[]
@@ -136,7 +144,24 @@ import nprogress  from 'nprogress';
       },
       labelPill:function(type,len){
         $('#good-list-con .'+type+' .panel-title').append('<span class="label label-info label-pill count">'+len+'</span>');
-      }
+      },
+      showChart:function(gid){
+      request
+        .post('/api/chart/'+gid)
+        .end((err, res) => {
+          nprogress.done()
+          if (res.body.result_code===-1) {
+            notie.alert(3, res.body.error, 1.5)
+          } else if(err){
+            notie.alert(3, err.message, 1.5)
+          }else{
+             this.$data.showChartModal=true;
+             this.$data.chartOption = res.body;
+             Ponitor.createEchartsLine("priceChart",this.$data.chartOption);
+
+          }
+        })
+    }
     },
      route: {
       data(transition){
@@ -156,6 +181,7 @@ import nprogress  from 'nprogress';
       }
     },
     components: {
+      'nvChart':require('../components/charts.vue'),
       accordion,
       panel
     }
