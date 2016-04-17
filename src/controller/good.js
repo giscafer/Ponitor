@@ -6,7 +6,10 @@ const Crawler=require('../storeUtils');
 function list(req,res,next){
 	const type=req.params.type;
 	if(!req.session.user){
-		return res.send([]);
+		return res.send({
+			status:403,
+			data:[]
+		});
 	}
 	let query={
 		userId:req.session.user._id
@@ -16,7 +19,10 @@ function list(req,res,next){
 	}
 	 goodModel.list(query, {})
         .then(goods => {
-            res.send(goods)
+            res.send({
+				status:200,
+				data:goods
+			});
         })
         .catch(err => res.send(err));
 }

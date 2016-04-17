@@ -28,6 +28,7 @@ function adminRequired(req, res, next) {
     if (!req.session.user) {
         return res.status(403).send({
             result_code: -1,
+            status: 403,
             reject: 'unlogin',
             error: '您还没有登录'
         });
@@ -36,6 +37,7 @@ function adminRequired(req, res, next) {
     if (!req.session.user.is_admin) {
         return res.status(403).send({
             result_code: -1,
+            status: 403,
             reject: 'unadmin',
             error: '需要管理员权限'
         });

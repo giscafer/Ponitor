@@ -174,9 +174,12 @@ import nprogress  from 'nprogress';
               return;
             } else if(res.body.result_code===-1){
               notie.alert(3, res.body.error, 1.5);
+              if(res.body.status===403){
+                  localStorage.clear();
+              }
               return;
             }
-            this.sortGoods(res.body);
+            this.sortGoods(res.body.data);
           });
       }
     },

@@ -39,7 +39,10 @@ export default {
             if (err) {
               notie.alert(3, err.message, 1.5)
             } else {
-              this.goods = res.body
+              this.goods = res.body.data;
+              if(res.body.status===403){
+                  localStorage.clear();
+              }
             }
           })
       }
