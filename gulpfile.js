@@ -10,7 +10,7 @@ var gulp = require('gulp'),
 
 var nodemon = require('gulp-nodemon');
 var watch = require('gulp-watch');
-var config = require('./build/webpack.prod.config.js');
+var config = require('./build/webpack.prod.config.js');//prod
 
 var paths = {
     watchfiles: ['src/**/*.vue', 'src/**/*.js', 'src/*.vue'],
@@ -71,7 +71,7 @@ gulp.task('images', function() {
 gulp.task('scripts', function() {
     gulp.src(paths.scripts)
         // .pipe(rename({suffix:'.min'}))
-        .pipe(uglify())
+        // .pipe(uglify())
         .pipe(gulp.dest('dist/js'));
 });
 /**
