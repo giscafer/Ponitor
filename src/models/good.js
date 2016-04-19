@@ -1,3 +1,7 @@
+/**
+ * 商品model，使用ES6书写方式仅是为了练习而已，
+ * 个人推荐user model （user.js ）的写法方式
+ */
 'use strict'
 
 const mongoose = require('mongoose');
@@ -114,5 +118,17 @@ function del(goodId){
         });
     });
 }
+/**
+ * count
+ */
+function count(query){
+    return new Promise((resolve,reject)=>{
+        GoodModel.count(query).then(count=>{
+            resolve(count);
+        }).catch(err=>{
+            reject(err);
+        });
+    });
+}
 
-module.exports = { add,update,list,getGoodById,del};
+module.exports = { add,update,list,getGoodById,del,count};

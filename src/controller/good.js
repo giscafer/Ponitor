@@ -76,5 +76,23 @@ function del(req,res,next){
 		return next(err);
 	});
 }
-
-module.exports = {list,save,del};
+/**
+ * count
+ */
+function count(req,res,next) {
+	goodModel.count({})
+	.then(count=>{
+	    res.send({
+			status:200,
+			data:count
+		});
+	})
+	.catch(err=>{
+		return res.send({
+			result_code:-1,
+			status:500,
+			error:err.message || '统计用户数出错！'
+		});
+	});
+}
+module.exports = {list,save,del,count};
