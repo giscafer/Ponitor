@@ -1,8 +1,8 @@
 {
-  "name": "pomitor",
+  "name": "ponitor",
   "version": "1.0.1",
-  "description": "Pomitor 价格监测",
-  "main": "index.js",
+  "description": "Ponitor 价格监测",
+  "main": "app.js",
   "scripts": {
     "start": "node app.js",
     "dev": "webpack-dev-server --inline --hot --config build/webpack.dev.config.js",
@@ -39,8 +39,7 @@
     "utility": "^1.6.0",
     "validator": "^5.1.0",
     "vue": "^1.0.17",
-    "vue-strap": "^1.0.7",
-    "wechat-api": "^1.27.1"
+    "vue-strap": "^1.0.7"
   },
   "devDependencies": {
     "babel-core": "^6.1.2",
@@ -91,9 +90,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/giscafer/Pomitor.git"
+    "url": "git+https://github.com/giscafer/Ponitor.git"
   },
   "keywords": [
+    "vue.js",
     "vue",
     "webpack",
     "node.js"
