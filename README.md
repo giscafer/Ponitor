@@ -1,5 +1,5 @@
 # Ponitor
-[![Build Status][travis-image]][https://github.com/giscafer/Ponitor]
+[![Build Status][https://travis-ci.org/giscafer/Ponitor.svg?branch=master]][https://github.com/giscafer/Ponitor]
 
 [ P ] rice + M [ onitor ] = Ponitor 价格监测
 
