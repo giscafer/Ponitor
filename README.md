@@ -1,4 +1,5 @@
 # Ponitor
+[![Build Status][travis-image]][travis-url]
 
 [ P ] rice + M [ onitor ] = Ponitor 价格监测
 
