@@ -14,9 +14,10 @@ client.on("error", function(err) {
 	});
     initSession(_app);
 });
-// 建立连接后，在进行集合操作前，需要先进行auth验证
-client.auth(config.bae_accesskey + '-' + config.bae_secretkey + '-' + config.redis_db);
+
 function initSession(app) {
+    // 建立连接后，在进行集合操作前，需要先进行auth验证
+    client.auth(config.bae_accesskey + '-' + config.bae_secretkey + '-' + config.redis_db);
     app.use(session({
         secret: config.session_secret,
         key: config.auth_cookie_name,
