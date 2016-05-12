@@ -32,7 +32,7 @@ MongooseKeeper.prototype.config = function(conf) {
     }
     mongoose.connect(connStr, function(err) {
         if (err) {
-            console.error('connect to %s error: ', connStr, err.message);
+            console.error('connect to %s error: ', connStr+process.env.NODE_ENV, err.message);
             // process.exit(1);
         }
     });

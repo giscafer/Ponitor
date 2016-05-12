@@ -4,7 +4,8 @@ var path=require('path');
 var bodyParser=require('body-parser');
 var cookieParser=require('cookie-parser');
 var session=require('express-session');
-var mongokeeper = require('./src/models/mongokeeper');
+var mongokeeper = require('./src/db/mongokeeper');
+
 var webRouter=require('./src/routes/web_router');
 var apiRouter=require('./src/routes/api_router');
 var config=require('./src/config.global');
@@ -52,7 +53,7 @@ if (process.env.NODE_ENV=='development') {
 
 } else {
     //redis保存session
-    var redis = require('redis');
+   /* var redis = require('redis');
     var RedisStore = require('connect-redis')(session);
     var client = redis.createClient(config.redis_port, 'redis.duapp.com', {
         "no_ready_check": true
@@ -70,7 +71,8 @@ if (process.env.NODE_ENV=='development') {
         }),
         resave: true,
         saveUninitialized: true
-    }));
+    }));*/
+    require('./src/db/rediskeeper')(app);
 }
 app.use(authMiddleware.authUser);
 app.use('/',webRouter);
