@@ -47,6 +47,14 @@ function fetchGoodInfo(itemId) {
                 const bff = Buffer.concat(body , size);
                 const text = iconv.decode(bff, 'GBK');
                 const resultJson = JSON.parse(text);
+                if(!resultJson.itemList){
+                    reject({
+                        result_code:-1,
+                        status:404,
+                        error:'获取商品信息失败！'
+                    });
+                       return;
+                }
                 const resInfo = resultJson.itemList[0];
                 if(!resInfo){
                     reject({
