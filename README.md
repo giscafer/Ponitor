@@ -1,5 +1,4 @@
 # Ponitor
-[![Build Status](https://travis-ci.org/giscafer/Ponitor.svg?branch=master)](https://github.com/giscafer/Ponitor)
 
 [ P ] rice + M [ onitor ] = Ponitor 价格监测
 
@@ -7,8 +6,6 @@
 商品价格趋势分析统计等；
 
 技术栈：vue.js + ES6 + node.js + mongodb
-
-[BAE在线体验](http://ponitor.duapp.com/)（提供已注册账号：ponitor，密码：ponitor）
 
 
 # Usage
