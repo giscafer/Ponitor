@@ -7,6 +7,9 @@
 
 技术栈：vue.js + ES6 + node.js + mongodb
 
+[演示demo](http://ponitor.duapp.com/)
+
+（由于注册会员和商品增多，BAE应用引擎性能不足，演示demo关闭了商品价格定时监测器）
 
 # Usage
 
