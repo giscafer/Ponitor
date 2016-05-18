@@ -5,8 +5,8 @@
       <div class="pure-u-1-6" v-for="good in goods">
         <div class="good">
           <div class="icon">
-            <img v-bind:src="good.image" alt="" class="pure-img">
-          <div class="name">{{ good.name }}<br/><a href="{{good.url}}" target="_blank">详情</a>&nbsp;&nbsp;<a  @click="showChart(good._id)">趋势</a></div> 
+            <img v-bind:src="good.image" alt="{{ good.name}}" class="pure-img"  title="{{ good.name}}">
+          <div class="name" title="{{ good.name}}">{{ good.name | asLength 12}}<br/><a href="{{good.url}}" target="_blank" style="cursor:pointer">详情</a>&nbsp;<a style="cursor:pointer"  @click="showChart(good._id)">趋势</a></div> 
           <div class="price">{{ good.priceText }}</div> 
           </div>
           </div>
@@ -94,14 +94,14 @@ export default {
    .good{
       text-align: center;
     .icon{
-      padding: 2em;
-      padding-bottom: .6em;
+      padding: 30px;
+      padding-bottom: 10px;
       img{
         border-radius: 20px;
       }
     }
     .name{
-      font-size: 0.8em;
+      font-size: 16px;
     }
     .price{
       font-size: 0.8em;

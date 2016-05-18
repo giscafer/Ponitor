@@ -60,3 +60,7 @@ router.beforeEach(function ({ to, next }) {
   next();
 });
 
+Vue.filter('asLength', function (value,len) {
+  len=Number(len)>0?Number(len):25;
+  return value.substring(0,len);
+});
