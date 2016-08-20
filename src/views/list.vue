@@ -41,7 +41,7 @@ export default {
             } else {
               this.goods = res.body.data;
               if(res.body.status===403){
-                  localStorage.clear();
+                  window.localStorage.clear();
               }
             }
           })

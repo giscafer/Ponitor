@@ -45,7 +45,7 @@ export default{
              	notie.alert(2,res.body.error,2);
                 return;
              }
-             localStorage.clear();
+             window.localStorage.clear();
              location.reload();
       	});
       },
