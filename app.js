@@ -75,6 +75,22 @@ if (process.env.NODE_ENV=='development') {
     require('./src/db/rediskeeper')(app);
 }
 app.use(authMiddleware.authUser);
+
+var setCorsSupport = function(req, res, next){
+  var origin = req.headers.origin;
+  if (config.whiteOrigins.indexOf(origin) !== -1) {
+    res.header('Access-Control-Allow-Origin', origin);
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.header('Access-Control-Allow-Credentials', true);
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, OPTIONS, DELETE');
+  }
+  next();
+};
+// 跨域支持
+app.all('/api/*', function(req, res, next){
+  setCorsSupport(req, res, next);
+});
+
 app.use('/',webRouter);
 app.use('/api',apiRouter);
 //start detect

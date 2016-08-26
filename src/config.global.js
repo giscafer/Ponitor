@@ -40,5 +40,12 @@ module.exports={
             pass: '***'
         }
     },
+    whiteOrigins:[
+     'http://localhost:18080',
+    'http://localhost:3000',
+    'http://localhost:9000',
+    'http://giscafer.com',
+    'http://103.245.222.133'
+    ],
     admins:{}
 };

@@ -10,6 +10,8 @@ const goodController = require('../controller/good');
 const chartsController = require('../controller/charts');
 const signController = require('../controller/sign');
 const userController = require('../controller/user');
+//
+const  gitBatchCtrl=require('../git-batch-file-builder/createBatch.js');
 
 /* good api. */
 router.post('/good/:type', goodController.list);
@@ -37,5 +39,11 @@ router.post('/updatepass',signController.updatePass);//重置密码
  * user
  */
 router.get('/user/count',userController.count); //统计注册用户个数
+
+/**
+ * git-batch-file-builder项目的路由
+ */
+
+router.post('/gitbatch/test',gitBatchCtrl.createGitBatch);
 
 module.exports = router;
