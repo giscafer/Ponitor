@@ -3,6 +3,7 @@
 node_modules/
 node_modules1111/
 dist/
+download/
 npm-debug.log
 appid.json
 log
