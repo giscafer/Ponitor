@@ -14,6 +14,7 @@ var app=express();
 
 //view engine
 app.set('views',path.join(__dirname,'./src/views'));
+
 app.set('view engine','html');
 app.engine('html', require('ejs-mate'));
 // app.locals._layoutFile = 'layout.html';
@@ -22,6 +23,7 @@ app.enable('trust proxy');
 // 静态文件目录
 app.use(express.static(__dirname + './src/views'));
 app.use('/dist', express.static(__dirname + '/dist'));
+app.use('/download', express.static('download'));
 app.use(express.static(path.join(__dirname,'public')));
 
 app.use(bodyParser.json());
