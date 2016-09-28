@@ -9,7 +9,9 @@
 
 [演示demo](http://project.xinong.wang:18080/) 账号:ponitor  密码:ponitor
 
-# Usage
+*目前只支持 PC端*
+
+## Usage
 
 
 1、确保node版本（4.0以上）支持ES6
@@ -24,14 +26,17 @@
 
 
 
-# Screenshot
+## Screenshot
 
 [详细功能界面截图](https://github.com/giscafer/Ponitor/wiki/Ponitor%E5%8A%9F%E8%83%BD%E7%95%8C%E9%9D%A2%E6%88%AA%E5%9B%BE)
 
-# Other
+## Other
 
 [wiki](https://github.com/giscafer/Ponitor/wiki)
 
+### TODO
+
+- 响应式，兼容手机端
 
 ## License
 ![](https://img.shields.io/badge/license-MIT-blue.svg)
