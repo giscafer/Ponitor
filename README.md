@@ -1,15 +1,19 @@
 # Ponitor
 
-[ P ] rice + M [ onitor ] = Ponitor 价格监测
+[ P ] rice + M [ onitor ] = Ponitor 价格监测 
 
 可添加天猫、淘宝、京东、Apple App的商品，监控商品价格发生变动时（每天定时器），推送消息（目前是发送邮件），
 商品价格趋势分析统计等；
 
-技术栈：vue.js + ES6 + node.js + mongodb
+技术栈：vue.js1.x + ES6 + node.js + mongodb   
+
+*目前只支持 PC端*
 
 [演示demo](http://project.xinong.wang:18080/) 账号:ponitor  密码:ponitor
 
-*目前只支持 PC端*
+
+**react + redux 版本**：https://github.com/giscafer/react-ponitor
+
 
 ## Usage
 
@@ -32,7 +36,7 @@
 
 ## Other
 
-[wiki](https://github.com/giscafer/Ponitor/wiki)
+使用说明见 [wiki](https://github.com/giscafer/Ponitor/wiki)
 
 ### TODO
 
