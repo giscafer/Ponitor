@@ -39,7 +39,7 @@
 - 响应式，兼容手机端
 
 ## License
-![](https://img.shields.io/badge/license-MIT-blue.svg)
+![MIT](https://img.shields.io/badge/license-MIT-blue.svg)
 
 ---
 

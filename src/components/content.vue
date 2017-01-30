@@ -54,11 +54,13 @@
                 this.clearStore(res.body.reject);
                 return;
               }else{
+                if(res.body && res.body.status){
+                   return notie.alert(2,res.body.message,2);
+                }
                 notie.alert(1,'添加成功',1);
                 this.goodUrl='';
                 this.goods.push(res.body);
                 let type=res.body.type;
-                console.log(res.body.type)
                 this.$router.go({ name: 'all', params: { type: type }});
               }
             })

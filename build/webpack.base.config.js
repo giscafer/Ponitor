@@ -13,7 +13,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        loader: 'babel!eslint',
+        loader: 'babel',
         // make sure to exclude 3rd party code in node_modules
         exclude: /node_modules/
       },
@@ -35,7 +35,7 @@ module.exports = {
   // make sure to adjust your .eslintrc
   vue: {
     loaders: {
-      js: 'babel!eslint'
+      js: 'babel'//!eslint
     },
      postcss: [
       require('postcss-import'),
