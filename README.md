@@ -7,7 +7,7 @@
 
 技术栈：vue.js1.x + ES6 + node.js + mongodb   
 
-*目前只支持 PC端*
+*vue.js版本目前只支持 PC端*
 
 [演示demo](http://project.xinong.wang:18080/) 账号:ponitor  密码:ponitor
 
@@ -18,15 +18,21 @@
 ## Usage
 
 
-1、确保node版本（4.0以上）支持ES6
+1、确保node版本（v4.0以上）支持ES6
 
 2、将`src/config.global.default.js`文件重命名为`config.global.js`
 
-3、
+3、安装依赖
 
-- `npm install`
+ `npm install`
 
-- `gulp`
+4、构建
+
+ `npm run build`
+
+5、启动
+
+ `gulp`
 
 
 
