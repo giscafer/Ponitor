@@ -32,7 +32,7 @@
 
 5、启动
 
- `gulp`
+ `gulp` 或 `node app`
 
 
 
