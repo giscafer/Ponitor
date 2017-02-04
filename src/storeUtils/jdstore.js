@@ -65,15 +65,18 @@ function fetchGoodInfo(obj,callback) {
                 try {
                     const $ = cheerio.load(text);
                     const $intro = $('.itemInfo-wrap');
-                    const $preview = $('.preview-wrap');
+                    const $preview = $('#preview');
+                    const $itemInfo = $('#itemInfo');
                     if($intro.find('.itemover-tip').length>0){
                       return  reject({
                             status:404,
                             message:'商品已经下架，无法添加'    
                         });
                     }
-                    info.description = info.name = $intro.find(".sku-name").text();
-                    info.image = $preview.find("#spec-img").attr('data-origin');
+                    info.description = info.name = $intro.find(".sku-name").text() || $itemInfo.find('#name >h1').text();
+                    let $img=$preview.find("#spec-n1 >img");
+                    console.log($itemInfo.find('div#name').html())
+                    info.image =  $img.attr('data-origin') ||  $img.attr('jqimg') ||  $img.attr('src');
                     info.type = 'jd';
                     info.goodId = itemId;
                     info.url = url;
