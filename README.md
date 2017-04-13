@@ -44,9 +44,10 @@
 
 使用说明见 [wiki](https://github.com/giscafer/Ponitor/wiki)
 
-### TODO
+## Donate
 
-- 响应式，兼容手机端
+###  [打赏一下 Buy me a coffee](https://github.com/giscafer/buy-me-a-coffee/blob/master/README.md)
+
 
 ## License
 ![MIT](https://img.shields.io/badge/license-MIT-blue.svg)
