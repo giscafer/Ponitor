@@ -29,7 +29,8 @@ function fetchGoodInfo(itemId) {
         request.get({
                 url: priceReqUrl + '?needCount=16&appID=03130&recommendItemIds=' + itemId,
                 headers: {
-
+                    "refer":"https://detail.tmall.com/item.htm",
+                    "user-agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36"
                 }
             })
             .on('response', function(response) {
@@ -65,6 +66,17 @@ function fetchGoodInfo(itemId) {
                        return;
                 }
                 let info = {};
+
+                //如果itemId和获取到的goodId不一样，则为下架商品，天猫防爬虫机制
+                if(itemId!==resInfo.id){
+                    reject({
+                        result_code:-1,
+                        status:404,
+                        error:'该商品已经下架，无法添加！'
+                    });
+                    return;
+                }
+
                 try{
                     info.goodId = resInfo.id;
                     info.name = resInfo.title;
